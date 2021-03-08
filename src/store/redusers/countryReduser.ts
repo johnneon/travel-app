@@ -1,7 +1,21 @@
 import { CountryActionTypes, ICountryAction, ICountryState } from "../../types/country";
 
 const inititalState: ICountryState = {
-  country: {},
+  country: {
+    id: '',
+    capital: '',
+    description: '',
+    name: '',
+    capitalLocation: {
+      coordinates: [],
+      type: ''
+    },
+    imageUrl: '',
+    videoUrl: '',
+    currency: '',
+    ISOCode: '',
+    places: []
+  },
   loading: false,
   error: null,
 }
@@ -15,7 +29,7 @@ export const countryReduser = (state = inititalState, action: ICountryAction): I
       return { ...state, loading: false, country: action.payload }
 
     case CountryActionTypes.FETCH_COUNTRY_ERORR:
-      return { loading: false, error: action.payload, country: {} }
+      return { ...state, loading: false, error: action.payload }
   
     default:
      return state;
