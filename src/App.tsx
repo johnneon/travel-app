@@ -10,12 +10,14 @@ import CountryPage from './pages/CountryPage';
 import { CustomThemeProvider } from './theme/CustomThemeProvider';
 import { Provider } from 'react-redux';
 import { store } from './store';
+import Header from './components/Header/Header'
 
 function App() {
   return (
     <BrowserRouter>
       <CustomThemeProvider>
         <Provider store={store}>
+          <Header/>
             <Switch>
 
               <Route path="/" exact >
