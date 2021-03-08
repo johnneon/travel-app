@@ -15,6 +15,7 @@ const CountryPage: React.FunctionComponent<ICountryPageProps> = (props) => {
 
   useEffect(() => {
     fetchCountry(id);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   if (loading) {
