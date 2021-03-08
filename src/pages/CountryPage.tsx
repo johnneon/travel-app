@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useAction } from '../hooks/action.hook';
@@ -12,10 +13,9 @@ const CountryPage: React.FunctionComponent<ICountryPageProps> = (props) => {
   const { country, loading, error } = useTypedSelector((state) => state.country);
   const { id } = useParams<ParamTypes>();
   const { fetchCountry } = useAction();
-
+  
   useEffect(() => {
     fetchCountry(id);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   if (loading) {

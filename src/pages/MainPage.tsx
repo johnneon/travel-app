@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAction } from '../hooks/action.hook';
@@ -12,7 +13,6 @@ const MainPage: React.FunctionComponent<IMainPageProps> = (props) => {
   
   useEffect(() => {
     fetchAllCountries();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading) {
