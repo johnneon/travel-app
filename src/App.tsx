@@ -2,7 +2,8 @@ import React from 'react';
 import {
   BrowserRouter,
   Switch,
-  Route
+  Route,
+  Redirect
 } from "react-router-dom";
 import MainPage from './pages/MainPage';
 import CountryPage from './pages/CountryPage';
@@ -15,12 +16,19 @@ function App() {
     <BrowserRouter>
       <CustomThemeProvider>
         <Provider store={store}>
-
             <Switch>
-              <Route component={MainPage} path="/" exact />
-              <Route component={CountryPage} path="/country/:id" />
-            </Switch>
 
+              <Route path="/" exact >
+                <MainPage />
+              </Route>
+
+              <Route path="/country/:id" exact >
+                <CountryPage />
+              </Route>
+
+              <Redirect to="/" />
+
+            </Switch>
         </Provider>
       </CustomThemeProvider>
     </BrowserRouter>
