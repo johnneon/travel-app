@@ -19,6 +19,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import LoginForm from '../LoginForm/LoginForm'
 
 import logo from '../../assets/logo/logo.svg';
 
@@ -125,9 +126,8 @@ function Header() {
               </NativeSelect>
             </StyledForm>
 
-            <Button color="inherit" className={classes.loginButton}>
-              Login
-            </Button>
+            <LoginForm/>
+
           </div>
         </Toolbar>
       </Container>
