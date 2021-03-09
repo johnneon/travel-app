@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAction } from '../hooks/action.hook';
 import { useTypedSelector } from '../hooks/typedSelector.hook';
 import { CountryCard } from '../components/CountryCard';
@@ -16,9 +16,32 @@ const useStyles = makeStyles({
     alignItems: 'center',
     height: '100vh',
     width: '100vw',
-    background: 'url(https://i.pinimg.com/originals/ec/11/7a/ec117a2614aad453a8b8f1a7d00cb7ce.jpg) center no-repeat',
+    background: '#0277bd url(assets/images/first-screen.jpg) center no-repeat',
     backgroundSize: 'cover',
-    boxShadow: 'inset 0 0 140px 120px rgb(0, 0, 0, .5)',
+    backgroundBlendMode: 'soft-light',
+    boxShadow: 'inset 0 0 150px 10px rgb(0, 0, 0, .5)',
+  },
+  slider: {
+    '& .slick-next': {
+      top: 'auto',
+      right: 'auto',
+      bottom: -40,
+      left: 50,
+      zIndex: 1,
+      '&:before': {
+        fontSize: 40
+      },
+    },
+    '& .slick-prev': {
+      top: 'auto',
+      right: 'auto',
+      bottom: -40,
+      left: 0,
+      zIndex: 1,
+      '&:before': {
+        fontSize: 40
+      },
+    }
   }
 });
 
@@ -26,6 +49,7 @@ const MainPage: React.FunctionComponent<IMainPageProps> = (props) => {
   const classes = useStyles();
   const { countries, loading, error } = useTypedSelector((state) => state.countries);
   const { fetchAllCountries } = useAction();
+  const [currentSlide, setcurrentSlide] = useState<number>(0);
 
   useEffect(() => {
     fetchAllCountries();
@@ -52,11 +76,14 @@ const MainPage: React.FunctionComponent<IMainPageProps> = (props) => {
   });
 
   const settings = {
-    dots: true,
-    variableWidth: true,
-    infinite: true,
     speed: 500,
-    slidesToScroll: 1
+    infinite: true,
+    variableWidth: true,
+    swipeToSlide: true,
+    slidesToScroll: 1,
+    focusOnSelect: false,
+    adaptiveHeight: true,
+    beforeChange: (current: number, next: number) => setcurrentSlide(next)
   };
 
   return (
@@ -69,7 +96,7 @@ const MainPage: React.FunctionComponent<IMainPageProps> = (props) => {
         >
             Routes
         </Typography>
-        <Slider {...settings}>
+        <Slider {...settings} className={classes.slider}>
           {cards}
           {cards}
           {cards}

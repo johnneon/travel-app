@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   Typography,
   Link as StyledLink,
@@ -31,17 +31,21 @@ const useStyles = ({ imageUrl }: IStyleProps) => (makeStyles((theme: Theme) => (
     width: 300,
     height: 400,
     padding: theme.spacing(2),
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(4),
     background: `url(${imageUrl}) center no-repeat`,
     backgroundSize: 'cover',
     borderRadius: '10px',
-    transition: 'transform .2s',
+    transition: 'transform .2s linear',
+    boxShadow: 'inset 0 -120px 30px -3px rgb(0, 0, 0, .5), 0 10px 20px 1px rgb(0, 0, 0, .5)',
     '&:hover': {
       textDecoration: 'none',
+      transform: 'scale(1.05)'
     },
     '@media(max-width: 514px)': {
-      width: 250,
-      height: 350,
+      width: 230,
+      height: 330,
+      margin: theme.spacing(1.5),
+      boxShadow: 'inset 0 -100px 25px -3px rgb(0, 0, 0, .5), 0 5px 15px 1px rgb(0, 0, 0, .5)',
     },
   }
 })))();
@@ -49,24 +53,21 @@ const useStyles = ({ imageUrl }: IStyleProps) => (makeStyles((theme: Theme) => (
 export function CountryCard (props: ICountryCardProps) {
   const classes = useStyles(props);
   const { id, name, capital } = props;
-  const [rotateX, setRotateX] = useState<number>(0);
-  const [rotateY, setRotateY] = useState<number>(0);
+  // Тут набросок анимации, но трабл в том что обновляется весь компонент
+  // Стоит пропробовать через styled-comonents фишкой с div.attr(()=>)
+  // const [rotateX, setRotateX] = useState<number>(0);
+  // const [rotateY, setRotateY] = useState<number>(0);
 
-  const mouseMoveHandler = (event: React.MouseEvent) => {
-    const halfHeight = 150;
+  // const mouseMoveHandler = (event: React.MouseEvent) => {
+  //   setRotateX(-(event.nativeEvent.offsetY - 150) / 7);
+  //   setRotateY((event.nativeEvent.offsetY - 400) / 7);
+  // }
 
-    setRotateX(-(event.nativeEvent.offsetY - halfHeight) / 7);
-    setRotateY((event.nativeEvent.offsetY - halfHeight) / 7);
-  }
-
-  const mouseOutHandler = (event: React.MouseEvent) => {
-    setRotateX(0);
-    setRotateY(0);
-  }
-
-  useEffect(() => {
-    console.log(rotateX, rotateY);
-  }, [rotateX, rotateY]);
+  // const mouseOutHandler = (event: React.MouseEvent) => {
+  //   setRotateX(0);
+  //   setRotateY(0);
+  // }
+  // <div style={{transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`}}> </div>
 
   return (
     <Box className={classes.wrap}>
@@ -75,14 +76,9 @@ export function CountryCard (props: ICountryCardProps) {
         component={Link}
         color="textPrimary"
         to={`/country/${id}`}
-        onMouseMove={mouseMoveHandler}
-        onMouseOut={mouseOutHandler}
-        style={{transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,}}
       >
-        <Box>
-          <Typography variant="h3" >{name}</Typography>
-          <Typography variant="h4" >{capital}</Typography>
-        </Box>
+        <Typography variant="h3" >{name}</Typography>
+        <Typography variant="h4" >{capital}</Typography>
       </StyledLink>
     </Box>
   );
