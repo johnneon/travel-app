@@ -1,7 +1,6 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {
-  //   Typography,
   Button,
   AppBar,
   Toolbar,
@@ -10,7 +9,6 @@ import {
   FormControl,
   NativeSelect,
 } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
 import logo from '../../assets/logo/logo.svg';
