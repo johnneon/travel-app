@@ -1,12 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useAction } from '../hooks/action.hook';
 import { useTypedSelector } from '../hooks/typedSelector.hook';
-import { CountryCard } from '../components/CountryCard';
-import Slider from "react-slick";
+import CountryCard from '../components/CountryCard';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Box, Container, makeStyles, Typography } from '@material-ui/core';
+import MainSlider from '../components/MainSlider';
 interface IMainPageProps {
 }
 
@@ -21,37 +21,15 @@ const useStyles = makeStyles({
     backgroundBlendMode: 'soft-light',
     boxShadow: 'inset 0 0 150px 10px rgb(0, 0, 0, .5)',
   },
-  slider: {
-    '& .slick-next': {
-      top: 'auto',
-      right: 'auto',
-      bottom: -40,
-      left: 50,
-      zIndex: 1,
-      '&:before': {
-        fontSize: 40
-      },
-    },
-    '& .slick-prev': {
-      top: 'auto',
-      right: 'auto',
-      bottom: -40,
-      left: 0,
-      zIndex: 1,
-      '&:before': {
-        fontSize: 40
-      },
-    }
-  }
 });
 
 const MainPage: React.FunctionComponent<IMainPageProps> = (props) => {
   const classes = useStyles();
   const { countries, loading, error } = useTypedSelector((state) => state.countries);
   const { fetchAllCountries } = useAction();
-  const [currentSlide, setcurrentSlide] = useState<number>(0);
 
   useEffect(() => {
+    console.log('main page')
     fetchAllCountries();
   }, []);
 
@@ -63,29 +41,6 @@ const MainPage: React.FunctionComponent<IMainPageProps> = (props) => {
     return <h1>Error is {error}</h1>
   }
 
-  const cards = countries.map((country) => {
-    const { id, name, capital, imageUrl } = country;
-    return (
-      <CountryCard
-        name={name} id={id}
-        capital={capital}
-        imageUrl={imageUrl}
-        key={country.id}
-      />
-    )
-  });
-
-  const settings = {
-    speed: 500,
-    infinite: true,
-    variableWidth: true,
-    swipeToSlide: true,
-    slidesToScroll: 1,
-    focusOnSelect: false,
-    adaptiveHeight: true,
-    beforeChange: (current: number, next: number) => setcurrentSlide(next)
-  };
-
   return (
     <Box className={classes.wrap}>
       <Container>
@@ -96,11 +51,19 @@ const MainPage: React.FunctionComponent<IMainPageProps> = (props) => {
         >
             Routes
         </Typography>
-        <Slider {...settings} className={classes.slider}>
-          {cards}
-          {cards}
-          {cards}
-        </Slider>
+        <MainSlider>
+          {countries.map((country, ind) => {
+            const { id, name, capital, imageUrl } = country;
+            return (
+              <CountryCard
+                name={name} id={id}
+                capital={capital}
+                imageUrl={imageUrl}
+                key={ind}
+              />
+            )
+          })}
+        </MainSlider>
       </Container>
     </Box>
   );
