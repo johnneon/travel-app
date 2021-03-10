@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import {
   Modal,
@@ -8,6 +8,7 @@ import {
   Paper,
   Input,
 } from '@material-ui/core/';
+import logo from '../../assets/logo/logo.svg';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,6 +29,9 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: 15,
       width: 250,
     },
+    logo: {
+      width: 50,
+    },
     loginButton: {
       fontSize: '1rem',
       marginLeft: theme.spacing(4),
@@ -45,7 +49,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function LoginForm() {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -77,6 +81,7 @@ export default function LoginForm() {
         }}>
         <Fade in={open}>
           <Paper className={classes.paper}>
+              <img src={logo} alt="logo" className={classes.logo}/>
             <Input
               className={classes.input}
               id="email"
