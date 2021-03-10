@@ -6,11 +6,9 @@ import {
   withStyles,
 } from '@material-ui/core/styles';
 import {
-  Button,
   IconButton,
   AppBar,
   Toolbar,
-  InputAdornment,
   TextField,
   FormControl,
   NativeSelect,
@@ -19,7 +17,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-import LoginForm from '../LoginForm/LoginForm'
+import LoginForm from '../LoginForm/LoginForm';
 
 import logo from '../../assets/logo/logo.svg';
 
@@ -29,33 +27,53 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
     logoLink: {
-        display: 'flex',
-        alignItems: 'center',
+      display: 'flex',
+      alignItems: 'center',
     },
     logo: {
       width: 50,
+      '@media(max-width: 600px)': {
+        width: 40,
+      },
     },
     logoTitle: {
-        fontSize:30,
+      fontSize: 30,
+      '@media(max-width: 720px)': {
+        display: 'none',
+      },
     },
     form: {
-      color: '#000',
+      display: 'flex',
+      flexDirection: 'row',
+    },
+    search: {
       marginRight: theme.spacing(4),
+      '@media(max-width: 600px)': {
+        fontSize: 14,
+        marginRight: theme.spacing(2),
+        minWidth: '20px',
+      },
     },
     headerRow: {
       display: 'flex',
       justifyContent: 'space-between',
+      alignItems: 'center',
+      '@media(max-width: 600px)': {
+        padding: 0,
+      },
     },
     loginButton: {
       fontSize: '1rem',
       marginLeft: theme.spacing(4),
+      '@media(max-width: 600px)': {
+        fontSize: 14,
+        marginLeft: theme.spacing(2),
+      },
     },
     iconButton: {
       color: '#ffffff',
+      padding: '0 5px',
     },
-    h1: {
-        fontSize: 20,
-    }
   }),
 );
 
@@ -89,8 +107,14 @@ function Header() {
               TRAVEL
             </Typography>
           </Link>
-          <div>
-            <StyledForm>
+          <div className={classes.headerRow}>
+            <StyledForm className={classes.form}>
+              <IconButton
+                type="submit"
+                className={classes.iconButton}
+                aria-label="search">
+                <SearchIcon />
+              </IconButton>
               <TextField
                 id="search"
                 name="search"
@@ -98,19 +122,8 @@ function Header() {
                 autoFocus={true}
                 autoComplete="off"
                 type="search"
-                className={classes.form}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <IconButton
-                        type="submit"
-                        className={classes.iconButton}
-                        aria-label="search">
-                        <SearchIcon />
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
+                className={classes.search}
+                InputLabelProps={{ shrink: true }}
               />
             </StyledForm>
 
@@ -126,8 +139,7 @@ function Header() {
               </NativeSelect>
             </StyledForm>
 
-            <LoginForm/>
-
+            <LoginForm />
           </div>
         </Toolbar>
       </Container>

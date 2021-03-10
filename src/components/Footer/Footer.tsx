@@ -27,6 +27,9 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'block',
 
       fontSize: '18px',
+      '@media(max-width: 600px)': {
+        fontSize: '14px',
+      },
       '&:hover': {
         textDecoration: 'none',
         color: theme.palette.primary.light,
@@ -35,9 +38,15 @@ const useStyles = makeStyles((theme: Theme) =>
     footerItem: {
       display: 'inline-block',
       fontSize: '18px',
+      '@media(max-width: 600px)': {
+        fontSize: '14px',
+      },
     },
     imageIcon: {
       width: 100,
+      '@media(max-width: 600px)': {
+        width: 75,
+      },
     },
   }),
 );

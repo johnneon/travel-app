@@ -31,10 +31,15 @@ const useStyles = makeStyles((theme: Theme) =>
     loginButton: {
       fontSize: '1rem',
       marginLeft: theme.spacing(4),
+      '@media(max-width: 600px)': {
+        fontSize: 14,
+
+        marginLeft: 0,
+      },
     },
     loginSubmit: {
       backgroundColor: theme.palette.secondary.main,
-    }
+    },
   }),
 );
 
