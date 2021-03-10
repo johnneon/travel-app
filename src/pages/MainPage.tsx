@@ -7,8 +7,6 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Box, Container, makeStyles, Typography } from '@material-ui/core';
 import MainSlider from '../components/MainSlider';
-interface IMainPageProps {
-}
 
 const useStyles = makeStyles({
   wrap: {
@@ -23,13 +21,12 @@ const useStyles = makeStyles({
   },
 });
 
-const MainPage: React.FunctionComponent<IMainPageProps> = (props) => {
+const MainPage: React.FunctionComponent = (props) => {
   const classes = useStyles();
   const { countries, loading, error } = useTypedSelector((state) => state.countries);
   const { fetchAllCountries } = useAction();
 
   useEffect(() => {
-    console.log('main page')
     fetchAllCountries();
   }, []);
 
@@ -52,7 +49,7 @@ const MainPage: React.FunctionComponent<IMainPageProps> = (props) => {
             Routes
         </Typography>
         <MainSlider>
-          {countries.map((country, ind) => {
+          {countries.length > 0 ? countries.map((country, ind) => {
             const { id, name, capital, imageUrl } = country;
             return (
               <CountryCard
@@ -62,7 +59,7 @@ const MainPage: React.FunctionComponent<IMainPageProps> = (props) => {
                 key={ind}
               />
             )
-          })}
+          }) : ''}
         </MainSlider>
       </Container>
     </Box>
