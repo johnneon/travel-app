@@ -4,10 +4,9 @@ import {
   Link as StyledLink,
   makeStyles,
   Theme,
-  Box
+  Box,
 } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-
 
 export interface ICountryCardProps {
   id: string;
@@ -19,11 +18,12 @@ export interface ICountryCardProps {
 const cardWidth = 300;
 const cardHeight = 400;
 
-const useStyles =makeStyles((theme: Theme) => ({
+const useStyles = makeStyles((theme: Theme) => ({
   wrap: {
     perspective: 1000,
     transformStyle: 'preserve-3d',
-    padding: theme.spacing(3),
+    padding: theme.spacing(2),
+    marginRight: theme.spacing(3),
     position: 'relative',
   },
   card: {
@@ -45,7 +45,7 @@ const useStyles =makeStyles((theme: Theme) => ({
     overflow: 'hidden',
     '&:hover': {
       textDecoration: 'none',
-      transform: 'scale(1.05)'
+      transform: 'scale(1.05)',
     },
     '@media(max-width: 514px)': {
       width: 230,
@@ -67,6 +67,13 @@ const useStyles =makeStyles((theme: Theme) => ({
     position: 'relative',
     zIndex: 1,
     transition: 'transform .5s',
+  },
+  text2: {
+    position: 'relative',
+    zIndex: 1,
+    transition: 'transform .5s',
+    color: theme.palette.secondary.main,
+    fontFamily: "'Caveat', cursive",
   },
   link: {
     width: '100%',
@@ -93,14 +100,14 @@ const useStyles =makeStyles((theme: Theme) => ({
     width: '100%',
     height: '100%',
     position: 'absolute',
-    top: '0',
-    left: '0',
+    top: 0,
+    left: 0,
     transition: 'box-shadow .5s',
     boxShadow: 'inset 0 0px 20px 10px rgb(0, 0, 0, .5)',
     '@media(max-width: 514px)': {
       boxShadow: 'inset 0 0px 15px 5 rgb(0, 0, 0, .5)',
     },
-  }
+  },
 }));
 
 const CountryCard: React.FunctionComponent<ICountryCardProps> = (props) => {
@@ -154,7 +161,6 @@ const CountryCard: React.FunctionComponent<ICountryCardProps> = (props) => {
 
   return (
     <Box className={classes.wrap} >
-
       <Box
         className={classes.card}
         style={wrapper}
@@ -162,7 +168,8 @@ const CountryCard: React.FunctionComponent<ICountryCardProps> = (props) => {
         <Typography
           style={text}
           color="textPrimary"
-          className={classes.text} variant="h3"
+          className={classes.text}
+          variant="h3"
         >
             {name}
         </Typography>
@@ -170,7 +177,8 @@ const CountryCard: React.FunctionComponent<ICountryCardProps> = (props) => {
         <Typography
           style={text}
           color="textPrimary"
-          className={classes.text} variant="h4"
+          className={classes.text2}
+          variant="h4"
         >
             {capital}
         </Typography>
