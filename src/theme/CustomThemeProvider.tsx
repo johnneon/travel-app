@@ -1,11 +1,11 @@
 import React from 'react';
 import {
   unstable_createMuiStrictModeTheme as createMuiTheme, 
-  ThemeProvider
+  ThemeProvider,
+  responsiveFontSizes,
 } from '@material-ui/core/styles';
 
-// Можно дописывать по схеме с https://material-ui.com/customization/default-theme/#default-theme
-const theme = createMuiTheme({
+let theme = createMuiTheme({
   palette: {
     primary: {
       main: '#212121',
@@ -43,6 +43,8 @@ const theme = createMuiTheme({
     },
   },
 });
+
+theme = responsiveFontSizes(theme);
 
 export const CustomThemeProvider: React.FunctionComponent = (props) => {
   return (

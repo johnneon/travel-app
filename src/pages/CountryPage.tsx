@@ -3,13 +3,15 @@ import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useAction } from '../hooks/action.hook';
 import { useTypedSelector } from '../hooks/typedSelector.hook';
-interface ICountryPageProps {
-}
+import {
+  Backdrop,
+  CircularProgress
+} from '@material-ui/core';
 interface ParamTypes {
   id: string
 }
 
-const CountryPage: React.FunctionComponent<ICountryPageProps> = (props) => {
+const CountryPage: React.FunctionComponent = () => {
   const { country, loading, error } = useTypedSelector((state) => state.country);
   const { id } = useParams<ParamTypes>();
   const { fetchCountry } = useAction();
@@ -19,7 +21,11 @@ const CountryPage: React.FunctionComponent<ICountryPageProps> = (props) => {
   }, [id]);
 
   if (loading) {
-    return <h1>Loading...</h1>
+    return (
+      <Backdrop open={loading}>
+        <CircularProgress color="secondary" />
+      </Backdrop>
+    )
   }
 
   if (error) {
