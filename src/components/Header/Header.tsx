@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme: Theme) =>
     logoLink: {
       display: 'flex',
       alignItems: 'center',
+      '&:hover': {textDecoration: 'none',},
     },
     logo: {
       width: 50,
@@ -43,6 +44,8 @@ const useStyles = makeStyles((theme: Theme) =>
     logoTitle: {
       fontSize: 30,
       fontWeight: 700,
+      color: theme.palette.primary.contrastText,
+      
       '@media(max-width: 720px)': {
         display: 'none',
       },
@@ -108,7 +111,6 @@ function Header() {
             <Typography
               variant="h1"
               component="h2"
-              color="secondary"
               className={classes.logoTitle}>
               TRAVEL
             </Typography>

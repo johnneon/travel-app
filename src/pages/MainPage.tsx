@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   wrap: {
     display: 'flex',
     alignItems: 'center',
-    minHeight: '100vh',
+    minHeight: 'calc(100vh - 204px)',
     minWidth: '100vw',
     paddingTop: 100,
     background: '#0277bd url(assets/images/first-screen.jpg) center no-repeat',
@@ -29,7 +29,7 @@ const useStyles = makeStyles({
   },
   font: {
     fontFamily: "'Caveat', cursive",
-  }
+  },
 });
 
 const MainPage: React.FunctionComponent = () => {

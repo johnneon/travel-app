@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme: Theme) =>
 function Footer() {
   const classes = useStyles();
   return (
-    <AppBar position="static" className={classes.footer}>
+    <AppBar component="footer" position="static" className={classes.footer}>
       <Container>
         <Toolbar className={classes.footerInner}>
           <div className={classes.footerItem}>
