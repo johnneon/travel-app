@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme: Theme) =>
     footer: {
       flexGrow: 1,
       width: '100%',
-      backgroundColor: theme.palette.text.disabled,
     },
     footerInner: {
       display: 'flex',
@@ -38,6 +37,10 @@ const useStyles = makeStyles((theme: Theme) =>
     footerItem: {
       display: 'inline-block',
       fontSize: '18px',
+      width: 165,
+      textAlign: 'center',
+      '&:first-child': { textAlign: 'left' },
+      '&:last-child': { textAlign: 'right' },
       '@media(max-width: 600px)': {
         fontSize: '14px',
       },
@@ -78,7 +81,7 @@ function Footer() {
               <img src={RssLogo} alt="rss" className={classes.imageIcon} />
             </Icon>
           </Link>
-          <Typography className={classes.footerItem}>2021</Typography>
+          <Typography className={classes.footerItem}>© 2021</Typography>
         </Toolbar>
       </Container>
     </AppBar>

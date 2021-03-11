@@ -26,6 +26,10 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       flexGrow: 1,
     },
+    header: {
+      backgroundColor: 'transparent',
+      boxShadow: 'none',
+    },
     logoLink: {
       display: 'flex',
       alignItems: 'center',
@@ -38,6 +42,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     logoTitle: {
       fontSize: 30,
+      fontWeight: 700,
       '@media(max-width: 720px)': {
         display: 'none',
       },
@@ -58,6 +63,7 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'space-between',
       alignItems: 'center',
+      minHeight: 90,
       '@media(max-width: 600px)': {
         padding: 0,
       },
@@ -71,7 +77,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     iconButton: {
-      color: '#ffffff',
+      color: theme.palette.primary.contrastText,
       padding: '0 5px',
     },
   }),
@@ -94,7 +100,7 @@ const StyledForm = withStyles({
 function Header() {
   const classes = useStyles();
   return (
-    <AppBar position="static">
+    <AppBar position="absolute" className={classes.header}>
       <Container>
         <Toolbar className={classes.headerRow}>
           <Link href="/" className={classes.logoLink}>
@@ -128,11 +134,7 @@ function Header() {
             </StyledForm>
 
             <StyledForm>
-              <NativeSelect
-                // value={state.age}
-                // onChange={handleChange}
-                name="lang"
-                inputProps={{ 'aria-label': 'lang' }}>
+              <NativeSelect name="lang" inputProps={{ 'aria-label': 'lang' }}>
                 <option value={'en'}>EN</option>
                 <option value={'ru'}>RU</option>
                 <option value={'third'}>Third</option>

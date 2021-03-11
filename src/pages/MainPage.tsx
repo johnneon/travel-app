@@ -21,6 +21,7 @@ const useStyles = makeStyles({
     alignItems: 'center',
     minHeight: '100vh',
     minWidth: '100vw',
+    paddingTop: 100,
     background: '#0277bd url(assets/images/first-screen.jpg) center no-repeat',
     backgroundSize: 'cover',
     backgroundBlendMode: 'soft-light',
