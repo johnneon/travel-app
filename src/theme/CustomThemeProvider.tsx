@@ -1,48 +1,50 @@
 import React from 'react';
 import {
   unstable_createMuiStrictModeTheme as createMuiTheme, 
-  ThemeProvider
+  ThemeProvider,
+  responsiveFontSizes,
 } from '@material-ui/core/styles';
 
-// Можно дописывать по схеме с https://material-ui.com/customization/default-theme/#default-theme
-const theme = createMuiTheme({
+let theme = createMuiTheme({
   palette: {
     primary: {
-      light: '#7986cb',
-      main: '#3f51b5',
-      dark: '#303f9f',
-      contrastText: '#fff',
+      main: '#212121',
+      light: '#484848',
+      dark: '#000000',
+      contrastText: '#ffffff',
     },
     secondary: {
-      light: '#7986cb',
-      main: '#3f51b5',
-      dark: '#303f9f',
-      contrastText: '#fff',
+      main: '#ff1744',
+      light: '#ff616f',
+      dark: '#c4001d',
+      contrastText: '#000000',
     },
     error: {
-      main: '#f44336',
-      light: '#ff7961',
-      dark: '#ba000d',
+      main: '#ff3d00',
+      light: '#ff7539',
+      dark: '#c30000',
       contrastText: '#000000',
     },
     success: {
-      main: '#76ff03',
-      light: '#b0ff57',
-      dark: '#32cb00',
+      main: '#64dd17',
+      light: '#9cff57',
+      dark: '#1faa00',
       contrastText: '#000000',
     },
     background: {
-      paper: '#fafafa',
+      paper: '#686464',
       default: '#eceff1',
     },
     text: {
-      primary: '#7986cb',
-      secondary: '#3f51b5',
-      disabled: '#303f9f',
+      primary: '#fafafa',
+      secondary: '#000000',
+      disabled: '#bdbdbd',
       hint: '#fff',
     },
-  }
+  },
 });
+
+theme = responsiveFontSizes(theme);
 
 export const CustomThemeProvider: React.FunctionComponent = (props) => {
   return (

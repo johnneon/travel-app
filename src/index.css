@@ -11,3 +11,22 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#root {
+  overflow: hidden;
+}
+
+.slick-list {
+  margin: 0 -15px !important;
+  padding: 40px 15px !important;
+}
+
+.slick-slide {
+  outline: none !important;
+}
+
+@media (max-width: 514px) {
+  .slick-list {
+    padding: 10px 1px !important;
+  }
+}
