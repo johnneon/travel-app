@@ -7,12 +7,14 @@ import {
   Backdrop,
   CircularProgress
 } from '@material-ui/core';
+import DataMainScreen from '../containers/ DataMainScreen';
+
 interface ParamTypes {
-  id: string
+  id: string;
 }
 
 const CountryPage: React.FunctionComponent = () => {
-  const { country, loading, error } = useTypedSelector((state) => state.country);
+  const { loading, error } = useTypedSelector((state) => state.country);
   const { id } = useParams<ParamTypes>();
   const { fetchCountry } = useAction();
   
@@ -34,9 +36,7 @@ const CountryPage: React.FunctionComponent = () => {
 
   return (
     <>
-      <div>
-        {country.description}
-      </div>
+      <DataMainScreen />
       <Link to={'/'}>Back</Link>
     </>
   );
