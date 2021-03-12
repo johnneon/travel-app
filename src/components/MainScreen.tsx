@@ -22,11 +22,24 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingTop: 90,
     color: theme.palette.primary.contrastText,
     boxShadow: `inset 0px -500px 370px -100px ${theme.palette.primary.main}`,
+    '@media(max-width: 514px)': {
+      height: 'auto',
+    }
   },
   font: {
     fontFamily: "'Caveat', cursive",
     color: theme.palette.secondary.main,
   },
+  textContainer: {
+    paddingBottom: theme.spacing(10),
+    margin: '0 auto',
+    textAlign: 'center',
+    '@media(max-width: 514px)': {
+      textAlign: 'left',
+      paddingBottom: theme.spacing(0),
+      paddingTop: theme.spacing(20),
+    }
+  }
 }));
 
 const MainScreen: React.FunctionComponent<IMainScreenProps> = ({ description, imageUrl, name, capital }) => {
@@ -42,14 +55,23 @@ const MainScreen: React.FunctionComponent<IMainScreenProps> = ({ description, im
       <Grid
         className={classes.wrap}
         container
-        justify="center"
-        alignItems="center"
+        alignItems="flex-end"
       >
         <Container>
-          <Box>
-            <Typography variant="h1">{name}</Typography>
-            <Typography className={classes.font} variant="h2">Capital: {capital}</Typography>
-            <Typography variant="body1">{description}</Typography>
+          <Box className={classes.textContainer}>
+            <Typography variant="h1">
+              Country: 
+              <Typography component="span" className={classes.font} variant="h1">
+                {name}
+              </Typography>
+            </Typography>
+            <Typography variant="h2">
+              Capital: 
+              <Typography component="span" className={classes.font} variant="h2">
+                {capital}
+              </Typography>
+            </Typography>
+            <Typography component="p" variant="h5">{description}</Typography>
           </Box>
         </Container>
       </Grid>
