@@ -11,6 +11,7 @@ import {
   Theme
 } from '@material-ui/core';
 import DataMainScreen from '../containers/ DataMainScreen';
+import DataAttractionsGallery from '../containers/DataAttractionsGallery';
 import DataMediaPlayer from '../containers/DataMediaPlayer';
 
 interface ParamTypes {
@@ -48,6 +49,7 @@ const CountryPage: React.FunctionComponent = () => {
   return (
     <Box className={classes.wrap}>
       <DataMainScreen />
+      <DataAttractionsGallery />
       <DataMediaPlayer />
       <Box style={{height: 2000}} />
       <Link to={'/'}>Back</Link>
