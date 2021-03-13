@@ -5,14 +5,26 @@ import { useAction } from '../hooks/action.hook';
 import { useTypedSelector } from '../hooks/typedSelector.hook';
 import {
   Backdrop,
-  CircularProgress
+  Box,
+  CircularProgress,
+  makeStyles,
+  Theme
 } from '@material-ui/core';
+import DataMainScreen from '../containers/ DataMainScreen';
+
 interface ParamTypes {
-  id: string
+  id: string;
 }
 
+const useStyles = makeStyles((theme: Theme) => ({
+  wrap: {
+    background: theme.palette.primary.main,
+  },
+}));
+
 const CountryPage: React.FunctionComponent = () => {
-  const { country, loading, error } = useTypedSelector((state) => state.country);
+  const classes = useStyles();
+  const { loading, error } = useTypedSelector((state) => state.country);
   const { id } = useParams<ParamTypes>();
   const { fetchCountry } = useAction();
   
@@ -33,12 +45,11 @@ const CountryPage: React.FunctionComponent = () => {
   }
 
   return (
-    <>
-      <div>
-        {country.description}
-      </div>
+    <Box className={classes.wrap}>
+      <DataMainScreen />
+      <Box style={{height: 2000}} />
       <Link to={'/'}>Back</Link>
-    </>
+    </Box>
   );
 };
 
