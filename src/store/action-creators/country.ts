@@ -7,7 +7,6 @@ export const fetchCountry = (id: string) => {
     try {
       dispatch({ type: CountryActionTypes.FETCH_COUNTRY,  });
       const response = await axios.get(`https://travel-app-rss.herokuapp.com/countries/${id}`);
-      console.log(response.data);
       dispatch({ type: CountryActionTypes.FETCH_COUNTRY_SUCCESS, payload: response.data });
     } catch (e) {
       dispatch({ type: CountryActionTypes.FETCH_COUNTRY_ERORR, payload: 'Got an error' });

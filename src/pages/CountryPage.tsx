@@ -51,7 +51,6 @@ const CountryPage: React.FunctionComponent = () => {
       <DataMainScreen />
       <DataMediaPlayer />
       <MapWithCoords />
-      <Box style={{height: 2000}} />
       <Link to={'/'}>Back</Link>
     </Box>
   );
