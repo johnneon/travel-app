@@ -3,7 +3,7 @@ import Map from '../components/Map';
 import { IRootState } from '../store/redusers';
 
 const mapStateToProps = (state: IRootState) => {
-  const { coordinates } = state.country.country.capitalLocation;
+  const { coordinates } = state?.country?.country?.capitalLocation;
   
   return { coordinates };
 };
