@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core';
 import DataMainScreen from '../containers/ DataMainScreen';
 import DataMediaPlayer from '../containers/DataMediaPlayer';
+import MapWithCoords from '../containers/MapWithCoords';
 
 interface ParamTypes {
   id: string;
@@ -49,6 +50,7 @@ const CountryPage: React.FunctionComponent = () => {
     <Box className={classes.wrap}>
       <DataMainScreen />
       <DataMediaPlayer />
+      <MapWithCoords />
       <Box style={{height: 2000}} />
       <Link to={'/'}>Back</Link>
     </Box>

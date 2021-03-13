@@ -7,7 +7,7 @@ const inititalState: ICountryState = {
     description: '',
     name: '',
     capitalLocation: {
-      coordinates: [],
+      coordinates: [0, 0],
       type: ''
     },
     imageUrl: '',
