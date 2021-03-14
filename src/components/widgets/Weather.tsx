@@ -87,9 +87,17 @@ const Weather: React.FunctionComponent<WeatherProps> = ({
 
 const mapStateToProps = (state: IRootState) => {
   const { capital } = state?.country?.country;
+  const { TODAY, FEELS, WIND_SPEEN, WIND_SPEED_UNIT, AIR_HUMINDITY } = state?.laguage?.dictionary;
 
   return {
     cityName: capital,
+    labels: {
+      today: TODAY,
+      feels: FEELS,
+      windSpeed: WIND_SPEEN,
+      windSpeedUnit: WIND_SPEED_UNIT,
+      airHumidity: AIR_HUMINDITY,
+    }
   };
 };
 

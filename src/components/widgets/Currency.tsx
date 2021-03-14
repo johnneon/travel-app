@@ -90,8 +90,17 @@ const Currency: React.FunctionComponent<CurrencyProps> = ({
 
 const mapStateToProps = (state: IRootState) => {
   const { name, currency } = state?.country?.country;
+  const { CURRENT_CURRENCY, IS, COSTS } = state?.laguage?.dictionary;
   
-  return { countryName: name, currency };
+  return {
+    labels: {
+      currentCurrency: CURRENT_CURRENCY,
+      is: IS,
+      costs: COSTS,
+    },
+    countryName: name,
+    currency
+  };
 };
 
 export default connect(

@@ -157,10 +157,12 @@ const Time: React.FunctionComponent<TimeProps> = ({
 
 const mapStateToProps = (state: IRootState) => {
   const { timezone, name } = state?.country?.country;
+  const { TODAY_IN } = state?.laguage?.dictionary;
 
   return {
     timezoneOffset: timezone,
     cityName: name,
+    labels: { today: TODAY_IN }
   };
 };
 

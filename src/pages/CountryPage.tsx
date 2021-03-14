@@ -28,9 +28,11 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const CountryPage: React.FunctionComponent = () => {
   const classes = useStyles();
-  const { loading, error } = useTypedSelector((state) => state.country);
   const { id } = useParams<ParamTypes>();
+  const { country, laguage } = useTypedSelector((state) => state);
   const { fetchCountry } = useAction();
+  const { loading, error } = country;
+  const { BACK } = laguage.dictionary;
   
   useEffect(() => {
     fetchCountry(id);
@@ -54,7 +56,7 @@ const CountryPage: React.FunctionComponent = () => {
       <DataMediaPlayer />
       <MapWithCoords />
       <WidgetPanel />
-      <Link to={'/'}>Back</Link>
+      <Link to={'/'}>{BACK}</Link>
     </Box>
   );
 };

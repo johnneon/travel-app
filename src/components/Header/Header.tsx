@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   createStyles,
   makeStyles,
@@ -11,13 +11,16 @@ import {
   Toolbar,
   TextField,
   FormControl,
-  NativeSelect,
+  Select,
+  MenuItem,
   Link,
   Container,
   Typography,
 } from '@material-ui/core';
+import { useTypedSelector } from '../../hooks/typedSelector.hook';
 import SearchIcon from '@material-ui/icons/Search';
 import LoginForm from '../LoginForm/LoginForm';
+import { useAction } from '../../hooks/action.hook';
 
 import logo from '../../assets/logo/logo.svg';
 
@@ -102,6 +105,25 @@ const StyledForm = withStyles({
 
 function Header() {
   const classes = useStyles();
+  const { changeLanguage } = useAction();
+  const { dictionary } = useTypedSelector((state) => state.laguage);
+  const { TRAVEL_APP, SEARCH } = dictionary;
+  const [language, setLanguage] = useState('en');
+  const [open, setOpen] = useState(false);
+
+  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    changeLanguage(event.target.value as string);
+    setLanguage(event.target.value as string);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   return (
     <AppBar position="absolute" className={classes.header}>
       <Container>
@@ -112,7 +134,7 @@ function Header() {
               variant="h1"
               component="h2"
               className={classes.logoTitle}>
-              TRAVEL
+              {TRAVEL_APP}
             </Typography>
           </Link>
           <div className={classes.headerRow}>
@@ -126,7 +148,7 @@ function Header() {
               <TextField
                 id="search"
                 name="search"
-                placeholder="Search"
+                placeholder={SEARCH}
                 autoFocus={true}
                 autoComplete="off"
                 type="search"
@@ -136,11 +158,18 @@ function Header() {
             </StyledForm>
 
             <StyledForm>
-              <NativeSelect name="lang" inputProps={{ 'aria-label': 'lang' }}>
-                <option value={'en'}>EN</option>
-                <option value={'ru'}>RU</option>
-                <option value={'third'}>Third</option>
-              </NativeSelect>
+              <Select
+                open={open}
+                onClose={handleClose}
+                onOpen={handleOpen}
+                value={language}
+                onChange={handleChange}
+                inputProps={{ 'aria-label': 'lang' }}
+              >
+                <MenuItem value={'en'}>EN</MenuItem>
+                <MenuItem value={'ru'}>RU</MenuItem>
+                <MenuItem value={'uk'}>UK</MenuItem>
+              </Select>
             </StyledForm>
 
             <LoginForm />

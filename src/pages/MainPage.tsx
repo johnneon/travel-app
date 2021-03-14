@@ -34,7 +34,9 @@ const useStyles = makeStyles({
 
 const MainPage: React.FunctionComponent = () => {
   const classes = useStyles();
-  const { countries, loading, error } = useTypedSelector((state) => state.countries);
+  const state = useTypedSelector((state) => state);
+  const { countries, loading, error } = state.countries;
+  const { DOSCOVER, PLANET, WITH, TRAVEL_APP } = state.laguage.dictionary;
   const { fetchAllCountries } = useAction();
 
   useEffect(() => {
@@ -61,16 +63,13 @@ const MainPage: React.FunctionComponent = () => {
           color="textPrimary"
           variant="h1"
         >
-          Discover the 
-          <Typography
+          {DOSCOVER} <Typography
             align="center"
             color="secondary"
             variant="h1"
             component="span"
             className={classes.font}
-          >
-            planet
-          </Typography>
+          >{PLANET}</Typography>
         </Typography>
         <Typography
           align="center"
@@ -83,10 +82,8 @@ const MainPage: React.FunctionComponent = () => {
             variant="h2"
             component="span"
             className={classes.font}
-          >
-            with 
-          </Typography>
-            Travel-app
+          >{WITH} </Typography>
+          {TRAVEL_APP}
         </Typography>
         <MainSlider>
           {countries.length > 0 ? countries.map((country, ind) => {
