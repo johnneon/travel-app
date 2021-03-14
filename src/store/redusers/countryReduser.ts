@@ -14,7 +14,8 @@ const inititalState: ICountryState = {
     videoUrl: '',
     currency: '',
     ISOCode: '',
-    places: []
+    timezone: 0,
+    places: [],
   },
   loading: false,
   error: null,
