@@ -6,18 +6,17 @@ import {
   withStyles,
 } from '@material-ui/core/styles';
 import {
-  IconButton,
   AppBar,
   Toolbar,
-  TextField,
   FormControl,
   NativeSelect,
   Link,
   Container,
   Typography,
 } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
+
 import LoginForm from '../LoginForm/LoginForm';
+import Search from './Search';
 
 import logo from '../../assets/logo/logo.svg';
 
@@ -33,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
     logoLink: {
       display: 'flex',
       alignItems: 'center',
-      '&:hover': {textDecoration: 'none',},
+      '&:hover': { textDecoration: 'none' },
     },
     logo: {
       width: 50,
@@ -45,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: 30,
       fontWeight: 700,
       color: theme.palette.primary.contrastText,
-      
+
       '@media(max-width: 720px)': {
         display: 'none',
       },
@@ -53,14 +52,6 @@ const useStyles = makeStyles((theme: Theme) =>
     form: {
       display: 'flex',
       flexDirection: 'row',
-    },
-    search: {
-      marginRight: theme.spacing(4),
-      '@media(max-width: 600px)': {
-        fontSize: 14,
-        marginRight: theme.spacing(2),
-        minWidth: '20px',
-      },
     },
     headerRow: {
       display: 'flex',
@@ -78,10 +69,6 @@ const useStyles = makeStyles((theme: Theme) =>
         fontSize: 14,
         marginLeft: theme.spacing(2),
       },
-    },
-    iconButton: {
-      color: theme.palette.primary.contrastText,
-      padding: '0 5px',
     },
   }),
 );
@@ -116,24 +103,7 @@ function Header() {
             </Typography>
           </Link>
           <div className={classes.headerRow}>
-            <StyledForm className={classes.form}>
-              <IconButton
-                type="submit"
-                className={classes.iconButton}
-                aria-label="search">
-                <SearchIcon />
-              </IconButton>
-              <TextField
-                id="search"
-                name="search"
-                placeholder="Search"
-                autoFocus={true}
-                autoComplete="off"
-                type="search"
-                className={classes.search}
-                InputLabelProps={{ shrink: true }}
-              />
-            </StyledForm>
+            <Search />
 
             <StyledForm>
               <NativeSelect name="lang" inputProps={{ 'aria-label': 'lang' }}>
