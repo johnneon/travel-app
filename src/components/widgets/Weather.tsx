@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core";
+import { connect } from 'react-redux';
+import { IRootState } from '../../store/redusers';
+import { Grid, makeStyles, Theme, Typography } from "@material-ui/core";
 
 interface WeatherProps {
   cityName: string;
@@ -13,26 +15,16 @@ interface WeatherProps {
   };
 }
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: Theme) => ({
   weatherContainer: {
-    width: "40vh",
-    minHeight: "30vh",
-    backgroundColor: "#2b374f",
-    opacity: 0.6,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: theme.palette.secondary.main,
+    boxShadow: '0 0 20px 0px rgb(255, 255, 255, .5)',
     borderRadius: 20,
-    fontSize: "2vh",
-  },
-  temperatureHolder: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "3vh",
-    paddingTop: "50px",
-    marginBottom: "30px",
-  },
-  metrics: {
-    textAlign: "center",
-    lineHeight: "3vh",
+    margin: theme.spacing(2),
   },
 }));
 
@@ -66,32 +58,41 @@ const Weather: React.FunctionComponent<WeatherProps> = ({
   }, []);
 
   return weatherData.main ? (
-    <div className={classes.weatherContainer}>
-      <div className={classes.temperatureHolder}>
-        <img
+    <Grid item className={classes.weatherContainer}>
+      <Grid container justify="center" alignItems="center">
+      <img
           src={`https://openweathermap.org/img/w/${weatherData.weather[0].icon}.png`}
           alt="Weather icon"
         />
-        <div>
-          {weatherData.main.temp.toFixed()}
-          {tSign}
-        </div>
-      </div>
-      <div className={classes.metrics}>
+        <Typography align="center" variant="h4" color="textPrimary">
+          {weatherData.main.temp.toFixed()} {tSign}
+        </Typography>
+      </Grid>
+      <Typography align="center" variant="h5" color="textPrimary">
         {labels.today} {weatherData.weather[0].description}
-      </div>
-      <div className={classes.metrics}>
+      </Typography>
+      <Typography color="textPrimary" align="center" variant="h5">
         {labels.feels} {weatherData.main.feels_like.toFixed()}
         {tSign}
-      </div>
-      <div className={classes.metrics}>
+      </Typography>
+      <Typography color="textPrimary" align="center" variant="h5">
         {labels.windSpeed} {weatherData.wind.speed} {labels.windSpeedUnit}
-      </div>
-      <div className={classes.metrics}>
+      </Typography>
+      <Typography color="textPrimary" align="center" variant="h5">
         {labels.airHumidity} {weatherData.main.humidity}%
-      </div>
-    </div>
+      </Typography>
+    </Grid>
   ) : null;
 };
 
-export default Weather;
+const mapStateToProps = (state: IRootState) => {
+  const { capital } = state?.country?.country;
+
+  return {
+    cityName: capital,
+  };
+};
+
+export default connect(
+  mapStateToProps
+)(Weather);

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useRef } from "react";
-import { makeStyles } from "@material-ui/core";
+import { Grid, makeStyles, Theme, Typography } from "@material-ui/core";
 import { connect } from 'react-redux';
 import { IRootState } from '../../store/redusers';
 
@@ -44,14 +44,17 @@ const monthName = (n: number) => {
   return months[n];
 };
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: Theme) => ({
   timeContainer: {
-    width: "40vh",
-    minHeight: "30vh",
-    backgroundColor: "#2b374f",
-    opacity: 0.6,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: theme.palette.secondary.main,
+    boxShadow: '0 0 20px 0px rgb(255, 255, 255, .5)',
     borderRadius: 20,
-    paddingTop: 50,
+    padding: theme.spacing(2),
+    margin: theme.spacing(2),
     fontSize: "3vh",
   },
   date: {
@@ -140,23 +143,25 @@ const Time: React.FunctionComponent<TimeProps> = ({
   }, []);
 
   return (
-    <div className={classes.timeContainer}>
-      <div className={classes.text}>
+    <Grid item className={classes.timeContainer} >
+      <Typography align="center" variant="h4" color="textPrimary">
         {labels.today} {cityName}:
-      </div>
-      <div className={classes.date}>{timeData.dateString}</div>
-      <div
-        className={classes.time}
+      </Typography>
+      <Typography color="textPrimary" align="center" variant="h4">{timeData.dateString}</Typography>
+      <Typography color="textPrimary" align="center" variant="h2"
         dangerouslySetInnerHTML={timeData.timeString}
-      ></div>
-    </div>
+      ></Typography>
+    </Grid>
   );
 };
 
 const mapStateToProps = (state: IRootState) => {
-  const { timezone } = state?.country?.country;
-  
-  return { timezone };
+  const { timezone, name } = state?.country?.country;
+
+  return {
+    timezoneOffset: timezone,
+    cityName: name,
+  };
 };
 
 export default connect(

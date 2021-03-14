@@ -1,9 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
-import { makeStyles } from "@material-ui/core";
 import { connect } from 'react-redux';
 import { IRootState } from '../../store/redusers';
-
+import { Grid, makeStyles, Theme, Typography } from "@material-ui/core";
 interface CurrencyProps {
   currency?: string;
   countryName: string;
@@ -14,16 +13,16 @@ interface CurrencyProps {
   };
 }
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: Theme) => ({
   currencyContainer: {
-    width: "40vh",
-    minHeight: "30vh",
-    backgroundColor: "#2b374f",
-    opacity: 0.6,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: theme.palette.secondary.main,
+    boxShadow: '0 0 20px 0px rgb(255, 255, 255, .5)',
     borderRadius: 20,
-    fontSize: "2vh",
-    paddingTop: 50,
-    textAlign: "center",
+    margin: theme.spacing(2),
   },
   current: {
     fontSize: "2vh",
@@ -69,30 +68,30 @@ const Currency: React.FunctionComponent<CurrencyProps> = ({
   if (Object.keys(currencyData).length === 0) return null;
 
   return (
-    <div className={classes.currencyContainer}>
-      <div className={classes.current}>
+    <Grid item className={classes.currencyContainer}>
+      <Typography align="center" variant="h5" color="textPrimary">
         {labels.currentCurrency} {countryName} {labels.is} {currency}
-      </div>
-      <div className={classes.item}>
-        1 {currency} {labels.costs}
-      </div>
+      </Typography>
+      <Typography align="center" variant="h5" color="textPrimary">
+      1 {currency} {labels.costs}
+      </Typography>
       {currency !== "USD" && (
-        <div className={classes.rate}>{getRate("USD")} USD</div>
+        <Typography align="center" variant="h5" color="textPrimary" className={classes.rate}>{getRate("USD")} USD</Typography>
       )}
       {currency !== "EUR" && (
-        <div className={classes.rate}>{getRate("EUR")} EUR</div>
+        <Typography align="center" variant="h5" color="textPrimary" className={classes.rate}>{getRate("EUR")} EUR</Typography>
       )}
       {currency !== "RUB" && (
-        <div className={classes.rate}>{getRate("RUB")} RUB</div>
+        <Typography align="center" variant="h5" color="textPrimary" className={classes.rate}>{getRate("RUB")} RUB</Typography>
       )}
-    </div>
+    </Grid>
   );
 };
 
 const mapStateToProps = (state: IRootState) => {
   const { name, currency } = state?.country?.country;
   
-  return { name, currency };
+  return { countryName: name, currency };
 };
 
 export default connect(
