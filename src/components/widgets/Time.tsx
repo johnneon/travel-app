@@ -3,46 +3,9 @@ import React, { useEffect, useState, useRef } from "react";
 import { Grid, makeStyles, Theme, Typography } from "@material-ui/core";
 import { connect } from 'react-redux';
 import { IRootState } from '../../store/redusers';
+import { useTypedSelector } from '../../hooks/typedSelector.hook';
+import { addZero, dayName, monthName } from '../../utils/utils';
 
-// Adding 0 for less 10 num
-const addZero = (n: any) => {
-  return (parseInt(n, 10) < 10 ? "0" : "") + n;
-};
-
-// Check day
-const dayName = (n: number) => {
-  const days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-
-  return days[n];
-};
-
-// Check month
-const monthName = (n: number) => {
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  return months[n];
-};
 
 const useStyles = makeStyles((theme: Theme) => ({
   timeContainer: {
@@ -92,6 +55,7 @@ const Time: React.FunctionComponent<TimeProps> = ({
   timezoneOffset = 0,
 }) => {
   const classes = useStyles();
+  const { lang } = useTypedSelector((state) => state.laguage);
 
   const timerRef = useRef<any>({});
 
@@ -123,8 +87,8 @@ const Time: React.FunctionComponent<TimeProps> = ({
   const showDate = () => {
     const today = getToday(),
       date = addZero(today.getDate()),
-      day = dayName(today.getDay()),
-      month = monthName(today.getMonth());
+      day = dayName(today.getDay(), lang),
+      month = monthName(today.getMonth(), lang);
 
     // Display date
     const dateString = `${day}, ${date} ${month}`;
@@ -140,7 +104,7 @@ const Time: React.FunctionComponent<TimeProps> = ({
     return () => {
       timerRef.current && clearInterval(timerRef.current);
     };
-  }, []);
+  }, [lang]);
 
   return (
     <Grid item className={classes.timeContainer} >

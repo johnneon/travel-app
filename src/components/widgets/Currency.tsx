@@ -5,7 +5,6 @@ import { IRootState } from '../../store/redusers';
 import { Grid, makeStyles, Theme, Typography } from "@material-ui/core";
 interface CurrencyProps {
   currency?: string;
-  countryName: string;
   labels?: {
     currentCurrency: string;
     is: string;
@@ -36,9 +35,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const Currency: React.FunctionComponent<CurrencyProps> = ({
   currency = "USD",
-  countryName,
   labels = {
-    currentCurrency: "Currency in",
+    currentCurrency: "Local currency",
     is: "is",
     costs: "costs",
   },
@@ -70,7 +68,7 @@ const Currency: React.FunctionComponent<CurrencyProps> = ({
   return (
     <Grid item className={classes.currencyContainer}>
       <Typography align="center" variant="h5" color="textPrimary">
-        {labels.currentCurrency} {countryName} {labels.is} {currency}
+        {labels.currentCurrency} {labels.is} {currency}
       </Typography>
       <Typography align="center" variant="h5" color="textPrimary">
       1 {currency} {labels.costs}
@@ -89,7 +87,7 @@ const Currency: React.FunctionComponent<CurrencyProps> = ({
 };
 
 const mapStateToProps = (state: IRootState) => {
-  const { name, currency } = state?.country?.country;
+  const { currency } = state?.country?.country;
   const { CURRENT_CURRENCY, IS, COSTS } = state?.laguage?.dictionary;
   
   return {
@@ -98,7 +96,6 @@ const mapStateToProps = (state: IRootState) => {
       is: IS,
       costs: COSTS,
     },
-    countryName: name,
     currency
   };
 };

@@ -10,7 +10,8 @@ import {
   makeStyles,
   Typography,
   Backdrop,
-  CircularProgress
+  CircularProgress,
+  Paper
 } from '@material-ui/core';
 import MainSlider from '../components/MainSlider';
 import CountryCard from '../components/CountryCard';
@@ -45,14 +46,16 @@ const MainPage: React.FunctionComponent = () => {
 
   if (loading) {
     return (
-      <Backdrop open={loading}>
-        <CircularProgress color="secondary" />
-      </Backdrop>
+      <Paper style={{height: '100vh'}}>
+        <Backdrop open={loading}>
+          <CircularProgress color="secondary" />
+        </Backdrop>
+      </Paper>
     )
   }
 
   if (error) {
-    return <h1>Error is {error}</h1>
+    console.warn(error);
   }
 
   return (

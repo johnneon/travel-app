@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { connect } from 'react-redux';
 import { IRootState } from '../../store/redusers';
 import { Grid, makeStyles, Theme, Typography } from "@material-ui/core";
+import { useTypedSelector } from '../../hooks/typedSelector.hook';
+import { variables } from '../../data/variables';
 
 interface WeatherProps {
   cityName: string;
@@ -41,11 +43,11 @@ const Weather: React.FunctionComponent<WeatherProps> = ({
   },
 }) => {
   const classes = useStyles();
+  const { lang } = useTypedSelector((state) => state.laguage);
 
   const [weatherData, setWeatherData] = useState<any>({});
   const getWeather = async () => {
-    const apiKey = "eb7290df8210ec1e343811c44b869b32";
-    const lang = "en";
+    const apiKey = variables.WEATHER_API_KEY;
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric&&lang=${lang} `;
     const response = await fetch(url);
     const data = await response.json();
@@ -55,7 +57,7 @@ const Weather: React.FunctionComponent<WeatherProps> = ({
 
   useEffect(() => {
     cityName && getWeather();
-  }, []);
+  }, [lang]);
 
   return weatherData.main ? (
     <Grid item className={classes.weatherContainer}>

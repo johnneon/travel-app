@@ -12,9 +12,10 @@ import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
 import ZoomControl from 'mapbox-gl-controls/lib/zoom';
 import LanguageControl from 'mapbox-gl-controls/lib/language';
 import { useTypedSelector } from '../hooks/typedSelector.hook';
+import { variables } from '../data/variables';
 
-const accessToken = 'pk.eyJ1Ijoiam9obm5lb24iLCJhIjoiY2ttN2k4OTU3MGo2ajJwbGFiY3A2b3Y4aSJ9.wlYxrWsTtkIaoijDwil0tw';
-const stylesLink = 'mapbox://styles/johnneon/ckm7kyt6hg3ww17l94ba6ie94';
+const accessToken = variables.MAP_TOKEN;
+const stylesLink = variables.MAP_STYLE_LINK;
 
 mapboxgl.accessToken = accessToken;
 

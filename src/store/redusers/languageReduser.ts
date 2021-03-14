@@ -1,7 +1,8 @@
 import { LanguageActionTypes, ICangeLanguageAction, ILanguageState, dictionary } from "../../types/dictionary";
+import { variables } from '../../data/variables';
 
 const inititalState: ILanguageState = {
-  lang: 'en',
+  lang: variables.EN,
   dictionary: { ...dictionary.en },
 };
 

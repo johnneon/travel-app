@@ -21,8 +21,11 @@ import { useTypedSelector } from '../../hooks/typedSelector.hook';
 import SearchIcon from '@material-ui/icons/Search';
 import LoginForm from '../LoginForm/LoginForm';
 import { useAction } from '../../hooks/action.hook';
+import { variables } from '../../data/variables';
 
 import logo from '../../assets/logo/logo.svg';
+
+const { EN, RU, UK } = variables;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -108,7 +111,7 @@ function Header() {
   const { changeLanguage } = useAction();
   const { dictionary } = useTypedSelector((state) => state.laguage);
   const { TRAVEL_APP, SEARCH } = dictionary;
-  const [language, setLanguage] = useState('en');
+  const [language, setLanguage] = useState(EN);
   const [open, setOpen] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -162,13 +165,13 @@ function Header() {
                 open={open}
                 onClose={handleClose}
                 onOpen={handleOpen}
-                value={language}
+                value={language || 'EN'}
                 onChange={handleChange}
                 inputProps={{ 'aria-label': 'lang' }}
               >
-                <MenuItem value={'en'}>EN</MenuItem>
-                <MenuItem value={'ru'}>RU</MenuItem>
-                <MenuItem value={'uk'}>UK</MenuItem>
+                <MenuItem value={EN}>EN</MenuItem>
+                <MenuItem value={RU}>RU</MenuItem>
+                <MenuItem value={UK}>UK</MenuItem>
               </Select>
             </StyledForm>
 

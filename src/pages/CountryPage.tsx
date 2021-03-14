@@ -8,7 +8,8 @@ import {
   Box,
   CircularProgress,
   makeStyles,
-  Theme
+  Theme,
+  Paper
 } from '@material-ui/core';
 import DataMainScreen from '../containers/ DataMainScreen';
 import DataMediaPlayer from '../containers/DataMediaPlayer';
@@ -40,14 +41,16 @@ const CountryPage: React.FunctionComponent = () => {
 
   if (loading) {
     return (
-      <Backdrop open={loading}>
-        <CircularProgress color="secondary" />
-      </Backdrop>
+      <Paper style={{height: '100vh'}}>
+        <Backdrop open={loading}>
+          <CircularProgress color="secondary" />
+        </Backdrop>
+      </Paper>
     )
   }
 
   if (error) {
-    return <h1>Error is {error}</h1>
+    console.warn(error);
   }
 
   return (

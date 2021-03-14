@@ -1,19 +1,21 @@
 import { Dispatch } from "react";
 import { dictionary as importedDictionary, LanguageActionTypes, ICangeLanguageAction } from "../../types/dictionary";
+import { variables } from '../../data/variables';
 
+const { EN, RU, UK } = variables;
 
 export const changeLanguage = (lang: string) => {
   return (dispatch: Dispatch<ICangeLanguageAction>) => {
     let dictionary;
 
     switch (lang) {
-      case 'en':
+      case EN:
         dictionary = importedDictionary.en;
         break;
-      case 'ru':
+      case RU:
         dictionary = importedDictionary.ru;
         break;
-      case 'uk':
+      case UK:
         dictionary = importedDictionary.uk;
         break;
       default:
