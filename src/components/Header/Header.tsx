@@ -13,7 +13,6 @@ import {
   FormControl,
   Select,
   MenuItem,
-  Link,
   Container,
   Typography,
 } from '@material-ui/core';
@@ -22,6 +21,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import LoginForm from '../LoginForm/LoginForm';
 import { useAction } from '../../hooks/action.hook';
 import { variables } from '../../data/variables';
+import { NavLink } from 'react-router-dom';
 
 import logo from '../../assets/logo/logo.svg';
 
@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme: Theme) =>
     logoLink: {
       display: 'flex',
       alignItems: 'center',
+      textDecoration: 'none',
       '&:hover': {textDecoration: 'none',},
     },
     logo: {
@@ -135,7 +136,7 @@ function Header() {
     <AppBar position="fixed" className={classes.header}>
       <Container>
         <Toolbar className={classes.headerRow}>
-          <Link href="/" className={classes.logoLink}>
+          <NavLink to="/" className={classes.logoLink}>
             <img src={logo} alt="logo" className={classes.logo} />
             <Typography
               variant="h1"
@@ -143,7 +144,7 @@ function Header() {
               className={classes.logoTitle}>
               {TRAVEL_APP}
             </Typography>
-          </Link>
+          </NavLink>
           <div className={classes.headerRow}>
             <StyledForm className={classes.form}>
               <IconButton

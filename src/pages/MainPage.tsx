@@ -11,11 +11,12 @@ import {
   Typography,
   Backdrop,
   CircularProgress,
+  Theme,
 } from '@material-ui/core';
 import MainSlider from '../components/MainSlider';
 import CountryCard from '../components/CountryCard';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
   wrap: {
     display: 'flex',
     alignItems: 'center',
@@ -30,7 +31,11 @@ const useStyles = makeStyles({
   font: {
     fontFamily: "'Caveat', cursive",
   },
-});
+  backdrop: {
+    zIndex: theme.zIndex.snackbar + 1,
+    color: '#fff',
+  },
+}));
 
 const MainPage: React.FunctionComponent = () => {
   const classes = useStyles();
@@ -43,14 +48,6 @@ const MainPage: React.FunctionComponent = () => {
   useEffect(() => {
     fetchAllCountries(lang);
   }, [lang]);
-
-  if (loading) {
-    return (
-      <Backdrop open={loading}>
-        <CircularProgress color="secondary" />
-      </Backdrop>
-    )
-  }
 
   if (error) {
     console.warn(error);
@@ -100,6 +97,9 @@ const MainPage: React.FunctionComponent = () => {
           }) : ''}
         </MainSlider>
       </Container>
+      <Backdrop open={loading} className={classes.backdrop}>
+        <CircularProgress color="secondary" />
+      </Backdrop>
     </Box>
   );
 };

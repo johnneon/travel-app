@@ -77,7 +77,7 @@ const Weather: React.FunctionComponent<WeatherProps> = ({
       </Typography>
       <Typography color="textPrimary" align="center" variant="h5">
         {labels.feels} {weatherData.main.feels_like.toFixed()}
-        {tSign}
+        {variables.tSign}
       </Typography>
       <Typography color="textPrimary" align="center" variant="h5">
         {labels.windSpeed} {weatherData.wind.speed} {labels.windSpeedUnit}

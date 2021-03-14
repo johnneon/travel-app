@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     position: 'fixed',
     bottom: 0,
     left: 0,
-    zIndex: 2,
+    zIndex: 4,
     transform: 'translate(0%, calc(100% - 48px))',
     transition: 'all .3s linear',
     textAlign: 'center',

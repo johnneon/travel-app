@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 interface TimeProps {
-  cityName: string;
   timezoneOffset?: number;
   labels?: {
     today: string;
@@ -54,7 +53,6 @@ interface StateProps {
 }
 
 const Time: React.FunctionComponent<TimeProps> = ({
-  cityName,
   labels = { today: "Today in" },
   timezoneOffset = 0,
 }) => {
@@ -113,7 +111,7 @@ const Time: React.FunctionComponent<TimeProps> = ({
   return (
     <Grid item className={classes.timeContainer} >
       <Typography align="center" variant="h4" color="textPrimary">
-        {labels.today} {cityName}:
+        {labels.today}:
       </Typography>
       <Typography color="textPrimary" align="center" variant="h4">{timeData.dateString}</Typography>
       <Typography color="textPrimary" align="center" variant="h2"
@@ -124,13 +122,12 @@ const Time: React.FunctionComponent<TimeProps> = ({
 };
 
 const mapStateToProps = (state: IRootState) => {
-  const { timezone, name } = state?.country?.country;
-  const { TODAY_IN } = state?.laguage?.dictionary;
+  const { timezone } = state?.country?.country;
+  const { LOCAL_TIME } = state?.laguage?.dictionary;
 
   return {
     timezoneOffset: timezone,
-    cityName: name,
-    labels: { today: TODAY_IN }
+    labels: { today: LOCAL_TIME }
   };
 };
 

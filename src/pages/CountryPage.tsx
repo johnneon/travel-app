@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useAction } from '../hooks/action.hook';
 import { useTypedSelector } from '../hooks/typedSelector.hook';
 import {
@@ -9,7 +9,7 @@ import {
   CircularProgress,
   makeStyles,
   Theme,
-  Paper
+  Paper,
 } from '@material-ui/core';
 import DataMainScreen from '../containers/ DataMainScreen';
 import DataAttractionsGallery from '../containers/DataAttractionsGallery';
@@ -26,6 +26,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     background: theme.palette.primary.main,
     position: 'relative',
   },
+  backdrop: {
+    zIndex: theme.zIndex.snackbar + 1,
+    color: '#fff',
+  },
 }));
 
 const CountryPage: React.FunctionComponent = () => {
@@ -34,7 +38,7 @@ const CountryPage: React.FunctionComponent = () => {
   const { country, laguage } = useTypedSelector((state) => state);
   const { fetchCountry } = useAction();
   const { loading, error } = country;
-  const { dictionary, lang } = laguage;
+  const { lang } = laguage;
   
   useEffect(() => {
     fetchCountry(id, lang);
@@ -61,7 +65,9 @@ const CountryPage: React.FunctionComponent = () => {
       <DataMediaPlayer />
       <MapWithCoords />
       <WidgetPanel />
-      <Link to={'/'}>{dictionary.BACK}</Link>
+      <Backdrop open={loading} className={classes.backdrop}>
+        <CircularProgress color="secondary" />
+      </Backdrop>
     </Box>
   );
 };

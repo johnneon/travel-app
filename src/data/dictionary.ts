@@ -12,12 +12,13 @@ export const en = {
   CURRENT_CURRENCY: 'Local currency',
   IS: 'is',
   COSTS: 'costs',
-  TODAY_IN: 'Today in',
+  LOCAL_TIME: 'The local time',
   TODAY: "Today",
   FEELS: "Feels like",
   WIND_SPEEN: "Wind speed is",
   WIND_SPEED_UNIT: "m/s",
   AIR_HUMINDITY: "Air humidity",
+  COUNTRY_ATTRACTION: 'Country attractions',
 };
 
 export const ru = {
@@ -34,12 +35,13 @@ export const ru = {
   CURRENT_CURRENCY: 'Местная валюта',
   IS: 'это',
   COSTS: 'стоит',
-  TODAY_IN: 'Сегодня в',
+  LOCAL_TIME: 'Местное время',
   TODAY: "Сегодня",
   FEELS: "Чувствуется как",
   WIND_SPEEN: "Скорость ветра",
   WIND_SPEED_UNIT: "м/с",
   AIR_HUMINDITY: "Влажность воздуха",
+  COUNTRY_ATTRACTION: 'Достопримечательности страны',
 };
 
 export const uk = {
@@ -56,10 +58,11 @@ export const uk = {
   CURRENT_CURRENCY: 'Місцева валюта',
   IS: 'це',
   COSTS: 'коштує',
-  TODAY_IN: 'Сьогодні в',
+  LOCAL_TIME: 'Місцевий час',
   TODAY: "Сьогодні",
   FEELS: "Відчувається як",
   WIND_SPEEN: "Швидкість вітру",
   WIND_SPEED_UNIT: "м/с",
   AIR_HUMINDITY: "Вологість повітря",
+  COUNTRY_ATTRACTION: 'Визначні місця країни',
 };
