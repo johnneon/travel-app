@@ -22,6 +22,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     boxShadow: '0 0 20px 0px rgb(255, 255, 255, .5)',
     borderRadius: 20,
     margin: theme.spacing(2),
+    '@media(max-width: 514px)': {
+      margin: theme.spacing(1),
+      padding: '8px !important',
+    },
   },
   current: {
     fontSize: "2vh",
@@ -45,16 +49,16 @@ const Currency: React.FunctionComponent<CurrencyProps> = ({
 
   const [currencyData, setCurrencyData] = useState<any>({});
 
-  const getCurrency = async () => {
-    const apiKey = "fc20ef5a40a3bd033b50643e";
-    const url = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/${currency}`;
-    const response = await fetch(url);
-    const data = await response.json();
-
-    setCurrencyData(data);
-  };
-
+  
   useEffect(() => {
+    const getCurrency = async () => {
+      const apiKey = "fc20ef5a40a3bd033b50643e";
+      const url = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/${currency}`;
+      const response = await fetch(url);
+      const data = await response.json();
+  
+      setCurrencyData(data);
+    };
     currency && getCurrency();
   }, []);
 

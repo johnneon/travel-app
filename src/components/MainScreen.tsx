@@ -63,14 +63,12 @@ const MainScreen: React.FunctionComponent<IMainScreenProps> = ({ description, im
         <Container>
           <Box className={classes.textContainer}>
             <Typography variant="h1">
-              {COUNTRY}: 
-              <Typography component="span" className={classes.font} variant="h1">
+              {COUNTRY}: <Typography component="span" className={classes.font} variant="h1">
                 {name}
               </Typography>
             </Typography>
             <Typography variant="h2">
-              {CAPITAL}: 
-              <Typography component="span" className={classes.font} variant="h2">
+              {CAPITAL}: <Typography component="span" className={classes.font} variant="h2">
                 {capital}
               </Typography>
             </Typography>

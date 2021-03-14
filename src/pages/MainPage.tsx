@@ -11,7 +11,6 @@ import {
   Typography,
   Backdrop,
   CircularProgress,
-  Paper
 } from '@material-ui/core';
 import MainSlider from '../components/MainSlider';
 import CountryCard from '../components/CountryCard';
@@ -37,20 +36,19 @@ const MainPage: React.FunctionComponent = () => {
   const classes = useStyles();
   const state = useTypedSelector((state) => state);
   const { countries, loading, error } = state.countries;
-  const { DOSCOVER, PLANET, WITH, TRAVEL_APP } = state.laguage.dictionary;
+  const { dictionary, lang } = state.laguage;
+  const { DOSCOVER, PLANET, WITH, TRAVEL_APP } = dictionary;
   const { fetchAllCountries } = useAction();
 
   useEffect(() => {
-    fetchAllCountries();
-  }, []);
+    fetchAllCountries(lang);
+  }, [lang]);
 
   if (loading) {
     return (
-      <Paper style={{height: '100vh'}}>
-        <Backdrop open={loading}>
-          <CircularProgress color="secondary" />
-        </Backdrop>
-      </Paper>
+      <Backdrop open={loading}>
+        <CircularProgress color="secondary" />
+      </Backdrop>
     )
   }
 
@@ -89,28 +87,6 @@ const MainPage: React.FunctionComponent = () => {
           {TRAVEL_APP}
         </Typography>
         <MainSlider>
-          {countries.length > 0 ? countries.map((country, ind) => {
-            const { id, name, capital, imageUrl } = country;
-            return (
-              <CountryCard
-                name={name} id={id}
-                capital={capital}
-                imageUrl={imageUrl}
-                key={ind}
-              />
-            )
-          }) : ''}
-          {countries.length > 0 ? countries.map((country, ind) => {
-            const { id, name, capital, imageUrl } = country;
-            return (
-              <CountryCard
-                name={name} id={id}
-                capital={capital}
-                imageUrl={imageUrl}
-                key={ind}
-              />
-            )
-          }) : ''}
           {countries.length > 0 ? countries.map((country, ind) => {
             const { id, name, capital, imageUrl } = country;
             return (

@@ -6,4 +6,5 @@ export const variables = {
   EN: 'en',
   RU: 'ru',
   UK: 'uk',
+  tSign: '°C',
 }

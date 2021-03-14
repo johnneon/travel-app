@@ -19,6 +19,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(2),
     margin: theme.spacing(2),
     fontSize: "3vh",
+    '@media(max-width: 514px)': {
+      margin: theme.spacing(1),
+      padding: '8px !important',
+    },
   },
   date: {
     fontSize: "3vh",

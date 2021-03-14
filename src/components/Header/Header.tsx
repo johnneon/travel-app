@@ -33,7 +33,8 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
     header: {
-      backgroundColor: 'transparent',
+      backgroundFilter: 'blur(13px)',
+      backgroundColor: 'rgba(0,0,0,.2)',
       boxShadow: 'none',
     },
     logoLink: {
@@ -74,7 +75,10 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       minHeight: 90,
       '@media(max-width: 600px)': {
-        padding: 0,
+        padding: '5px 0',
+      },
+      '@media(max-width: 514px)': {
+        minHeight: 'auto',
       },
     },
     loginButton: {
@@ -128,7 +132,7 @@ function Header() {
   };
 
   return (
-    <AppBar position="absolute" className={classes.header}>
+    <AppBar position="fixed" className={classes.header}>
       <Container>
         <Toolbar className={classes.headerRow}>
           <Link href="/" className={classes.logoLink}>

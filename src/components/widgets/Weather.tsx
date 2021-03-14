@@ -27,10 +27,12 @@ const useStyles = makeStyles((theme: Theme) => ({
     boxShadow: '0 0 20px 0px rgb(255, 255, 255, .5)',
     borderRadius: 20,
     margin: theme.spacing(2),
+    '@media(max-width: 514px)': {
+      margin: theme.spacing(1),
+      padding: '8px !important',
+    },
   },
 }));
-
-const tSign = "° C";
 
 const Weather: React.FunctionComponent<WeatherProps> = ({
   cityName,
@@ -46,16 +48,16 @@ const Weather: React.FunctionComponent<WeatherProps> = ({
   const { lang } = useTypedSelector((state) => state.laguage);
 
   const [weatherData, setWeatherData] = useState<any>({});
-  const getWeather = async () => {
-    const apiKey = variables.WEATHER_API_KEY;
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric&&lang=${lang} `;
-    const response = await fetch(url);
-    const data = await response.json();
-
-    setWeatherData(data);
-  };
-
+  
   useEffect(() => {
+    const getWeather = async () => {
+      const apiKey = variables.WEATHER_API_KEY;
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric&&lang=${lang} `;
+      const response = await fetch(url);
+      const data = await response.json();
+  
+      setWeatherData(data);
+    };
     cityName && getWeather();
   }, [lang]);
 
@@ -67,7 +69,7 @@ const Weather: React.FunctionComponent<WeatherProps> = ({
           alt="Weather icon"
         />
         <Typography align="center" variant="h4" color="textPrimary">
-          {weatherData.main.temp.toFixed()} {tSign}
+          {weatherData.main.temp.toFixed()} {variables.tSign}
         </Typography>
       </Grid>
       <Typography align="center" variant="h5" color="textPrimary">

@@ -33,11 +33,11 @@ const CountryPage: React.FunctionComponent = () => {
   const { country, laguage } = useTypedSelector((state) => state);
   const { fetchCountry } = useAction();
   const { loading, error } = country;
-  const { BACK } = laguage.dictionary;
+  const { dictionary, lang } = laguage;
   
   useEffect(() => {
-    fetchCountry(id);
-  }, [id]);
+    fetchCountry(id, lang);
+  }, [id, lang]);
 
   if (loading) {
     return (
@@ -59,7 +59,7 @@ const CountryPage: React.FunctionComponent = () => {
       <DataMediaPlayer />
       <MapWithCoords />
       <WidgetPanel />
-      <Link to={'/'}>{BACK}</Link>
+      <Link to={'/'}>{dictionary.BACK}</Link>
     </Box>
   );
 };
