@@ -12,6 +12,7 @@ import {
   Paper
 } from '@material-ui/core';
 import DataMainScreen from '../containers/ DataMainScreen';
+import DataAttractionsGallery from '../containers/DataAttractionsGallery';
 import DataMediaPlayer from '../containers/DataMediaPlayer';
 import MapWithCoords from '../containers/MapWithCoords';
 import WidgetPanel from '../components/WidgetPanel';
@@ -56,6 +57,7 @@ const CountryPage: React.FunctionComponent = () => {
   return (
     <Box className={classes.wrap}>
       <DataMainScreen />
+      <DataAttractionsGallery />
       <DataMediaPlayer />
       <MapWithCoords />
       <WidgetPanel />
