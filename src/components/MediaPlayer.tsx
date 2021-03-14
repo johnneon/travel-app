@@ -1,4 +1,4 @@
-import { Box, Container, makeStyles, Typography } from '@material-ui/core';
+import { Box, Container, makeStyles, Theme, Typography } from '@material-ui/core';
 import React from 'react';
 import YouTube from 'react-youtube';
 
@@ -6,7 +6,11 @@ export interface IMediaPlayerProps {
   videoId: string;
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
+  wrap: {
+    marginBottom: theme.spacing(3),
+    marginTop: theme.spacing(2),
+  },
   videoContainer: {
     marginTop: 20,
     overflow: 'hidden',
@@ -20,9 +24,9 @@ const useStyles = makeStyles({
       height: '100%',
       left: 0,
       top: 0,
-    }
-  }
-});
+    },
+  },
+}));
 
 export function MediaPlayer ({ videoId }: IMediaPlayerProps) {
   const classes = useStyles();
@@ -33,11 +37,13 @@ export function MediaPlayer ({ videoId }: IMediaPlayerProps) {
   };
 
   return (
-    <Container>
-      <Typography align="center" color="textPrimary" variant="h2">Country overview</Typography>
-      <Box className={classes.videoContainer}>
-        <YouTube videoId={videoId} opts={opts} />
-      </Box>
-    </Container>
+    <Box className={classes.wrap}>
+      <Container>
+        <Typography color="textPrimary" variant="h3">Country overview</Typography>
+        <Box className={classes.videoContainer}>
+          <YouTube videoId={videoId} opts={opts} />
+        </Box>
+      </Container>
+    </Box>
   );
 };
