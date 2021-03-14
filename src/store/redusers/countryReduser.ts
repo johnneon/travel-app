@@ -7,14 +7,15 @@ const inititalState: ICountryState = {
     description: '',
     name: '',
     capitalLocation: {
-      coordinates: [],
+      coordinates: [0, 0],
       type: ''
     },
     imageUrl: '',
     videoUrl: '',
     currency: '',
     ISOCode: '',
-    places: []
+    timezone: 0,
+    places: [],
   },
   loading: false,
   error: null,

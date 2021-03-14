@@ -35,6 +35,7 @@ export interface ICountryData {
   name: string;
   capital: string;
   description: string;
+  timezone: number;
   places: IPlace[];
 }
 

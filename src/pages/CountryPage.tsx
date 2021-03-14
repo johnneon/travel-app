@@ -13,6 +13,8 @@ import {
 import DataMainScreen from '../containers/ DataMainScreen';
 import DataAttractionsGallery from '../containers/DataAttractionsGallery';
 import DataMediaPlayer from '../containers/DataMediaPlayer';
+import MapWithCoords from '../containers/MapWithCoords';
+import WidgetPanel from '../components/WidgetPanel';
 
 interface ParamTypes {
   id: string;
@@ -21,6 +23,7 @@ interface ParamTypes {
 const useStyles = makeStyles((theme: Theme) => ({
   wrap: {
     background: theme.palette.primary.main,
+    position: 'relative',
   },
 }));
 
@@ -51,7 +54,8 @@ const CountryPage: React.FunctionComponent = () => {
       <DataMainScreen />
       <DataAttractionsGallery />
       <DataMediaPlayer />
-      <Box style={{height: 2000}} />
+      <MapWithCoords />
+      <WidgetPanel />
       <Link to={'/'}>Back</Link>
     </Box>
   );
