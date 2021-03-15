@@ -3,46 +3,9 @@ import React, { useEffect, useState, useRef } from "react";
 import { Grid, makeStyles, Theme, Typography } from "@material-ui/core";
 import { connect } from 'react-redux';
 import { IRootState } from '../../store/redusers';
+import { useTypedSelector } from '../../hooks/typedSelector.hook';
+import { addZero, dayName, monthName } from '../../utils/utils';
 
-// Adding 0 for less 10 num
-const addZero = (n: any) => {
-  return (parseInt(n, 10) < 10 ? "0" : "") + n;
-};
-
-// Check day
-const dayName = (n: number) => {
-  const days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-
-  return days[n];
-};
-
-// Check month
-const monthName = (n: number) => {
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  return months[n];
-};
 
 const useStyles = makeStyles((theme: Theme) => ({
   timeContainer: {
@@ -56,6 +19,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: theme.spacing(2),
     margin: theme.spacing(2),
     fontSize: "3vh",
+    '@media(max-width: 514px)': {
+      margin: theme.spacing(1),
+      padding: '8px !important',
+    },
   },
   date: {
     fontSize: "3vh",
@@ -72,7 +39,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 interface TimeProps {
-  cityName: string;
   timezoneOffset?: number;
   labels?: {
     today: string;
@@ -87,11 +53,11 @@ interface StateProps {
 }
 
 const Time: React.FunctionComponent<TimeProps> = ({
-  cityName,
   labels = { today: "Today in" },
   timezoneOffset = 0,
 }) => {
   const classes = useStyles();
+  const { lang } = useTypedSelector((state) => state.laguage);
 
   const timerRef = useRef<any>({});
 
@@ -123,8 +89,8 @@ const Time: React.FunctionComponent<TimeProps> = ({
   const showDate = () => {
     const today = getToday(),
       date = addZero(today.getDate()),
-      day = dayName(today.getDay()),
-      month = monthName(today.getMonth());
+      day = dayName(today.getDay(), lang),
+      month = monthName(today.getMonth(), lang);
 
     // Display date
     const dateString = `${day}, ${date} ${month}`;
@@ -140,12 +106,12 @@ const Time: React.FunctionComponent<TimeProps> = ({
     return () => {
       timerRef.current && clearInterval(timerRef.current);
     };
-  }, []);
+  }, [lang]);
 
   return (
     <Grid item className={classes.timeContainer} >
       <Typography align="center" variant="h4" color="textPrimary">
-        {labels.today} {cityName}:
+        {labels.today}:
       </Typography>
       <Typography color="textPrimary" align="center" variant="h4">{timeData.dateString}</Typography>
       <Typography color="textPrimary" align="center" variant="h2"
@@ -156,11 +122,12 @@ const Time: React.FunctionComponent<TimeProps> = ({
 };
 
 const mapStateToProps = (state: IRootState) => {
-  const { timezone, name } = state?.country?.country;
+  const { timezone } = state?.country?.country;
+  const { LOCAL_TIME } = state?.laguage?.dictionary;
 
   return {
     timezoneOffset: timezone,
-    cityName: name,
+    labels: { today: LOCAL_TIME }
   };
 };
 

@@ -5,7 +5,6 @@ import { IRootState } from '../../store/redusers';
 import { Grid, makeStyles, Theme, Typography } from "@material-ui/core";
 interface CurrencyProps {
   currency?: string;
-  countryName: string;
   labels?: {
     currentCurrency: string;
     is: string;
@@ -23,6 +22,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     boxShadow: '0 0 20px 0px rgb(255, 255, 255, .5)',
     borderRadius: 20,
     margin: theme.spacing(2),
+    '@media(max-width: 514px)': {
+      margin: theme.spacing(1),
+      padding: '8px !important',
+    },
   },
   current: {
     fontSize: "2vh",
@@ -36,9 +39,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const Currency: React.FunctionComponent<CurrencyProps> = ({
   currency = "USD",
-  countryName,
   labels = {
-    currentCurrency: "Currency in",
+    currentCurrency: "Local currency",
     is: "is",
     costs: "costs",
   },
@@ -47,16 +49,16 @@ const Currency: React.FunctionComponent<CurrencyProps> = ({
 
   const [currencyData, setCurrencyData] = useState<any>({});
 
-  const getCurrency = async () => {
-    const apiKey = "fc20ef5a40a3bd033b50643e";
-    const url = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/${currency}`;
-    const response = await fetch(url);
-    const data = await response.json();
-
-    setCurrencyData(data);
-  };
-
+  
   useEffect(() => {
+    const getCurrency = async () => {
+      const apiKey = "fc20ef5a40a3bd033b50643e";
+      const url = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/${currency}`;
+      const response = await fetch(url);
+      const data = await response.json();
+  
+      setCurrencyData(data);
+    };
     currency && getCurrency();
   }, []);
 
@@ -70,7 +72,7 @@ const Currency: React.FunctionComponent<CurrencyProps> = ({
   return (
     <Grid item className={classes.currencyContainer}>
       <Typography align="center" variant="h5" color="textPrimary">
-        {labels.currentCurrency} {countryName} {labels.is} {currency}
+        {labels.currentCurrency} {labels.is} {currency}
       </Typography>
       <Typography align="center" variant="h5" color="textPrimary">
       1 {currency} {labels.costs}
@@ -89,9 +91,17 @@ const Currency: React.FunctionComponent<CurrencyProps> = ({
 };
 
 const mapStateToProps = (state: IRootState) => {
-  const { name, currency } = state?.country?.country;
+  const { currency } = state?.country?.country;
+  const { CURRENT_CURRENCY, IS, COSTS } = state?.laguage?.dictionary;
   
-  return { countryName: name, currency };
+  return {
+    labels: {
+      currentCurrency: CURRENT_CURRENCY,
+      is: IS,
+      costs: COSTS,
+    },
+    currency
+  };
 };
 
 export default connect(

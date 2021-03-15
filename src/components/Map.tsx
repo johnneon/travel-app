@@ -11,9 +11,11 @@ import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
 import ZoomControl from 'mapbox-gl-controls/lib/zoom';
 import LanguageControl from 'mapbox-gl-controls/lib/language';
+import { useTypedSelector } from '../hooks/typedSelector.hook';
+import { variables } from '../data/variables';
 
-const accessToken = 'pk.eyJ1Ijoiam9obm5lb24iLCJhIjoiY2ttN2k4OTU3MGo2ajJwbGFiY3A2b3Y4aSJ9.wlYxrWsTtkIaoijDwil0tw';
-const stylesLink = 'mapbox://styles/johnneon/ckm7kyt6hg3ww17l94ba6ie94';
+const accessToken = variables.MAP_TOKEN;
+const stylesLink = variables.MAP_STYLE_LINK;
 
 mapboxgl.accessToken = accessToken;
 
@@ -51,6 +53,8 @@ const Map: React.FunctionComponent<IMapProps> = ({ coordinates }) => {
   const [lng, lat] = coordinates;
   const screen: FullScreenHandle = useFullScreenHandle();
   const [fullScreen, setFullScreen] = useState<boolean>(screen.active);
+  const { dictionary, lang } = useTypedSelector((state) => state.laguage);
+  const { ON_THE_MAP } = dictionary;
 
   const handleChange = useCallback((fullScreen: boolean, screen: FullScreenHandle) => {
     setFullScreen(screen.active);
@@ -65,7 +69,7 @@ const Map: React.FunctionComponent<IMapProps> = ({ coordinates }) => {
     });
 
     const languageControl = new LanguageControl({
-      language: 'en',
+      language: lang,
     });
 
     map.addControl(new ZoomControl(), 'bottom-right');
@@ -76,11 +80,11 @@ const Map: React.FunctionComponent<IMapProps> = ({ coordinates }) => {
       .addTo(map);
 
     return () => map.remove();
-    }, []);
+    }, [lang]);
 
   return (
     <Container>
-      <Typography variant="h3" color="textPrimary">On the map</Typography>
+      <Typography variant="h3" color="textPrimary">{ON_THE_MAP}</Typography>
         <Box className={classes.wrap}>
           <FullScreen handle={screen} onChange={handleChange}>
             <IconButton

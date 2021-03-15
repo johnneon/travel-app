@@ -8,6 +8,7 @@ import {
 } from '@material-ui/core';
 import 'react-image-gallery/styles/css/image-gallery.css';
 import ImageGallery from 'react-image-gallery';
+import { useTypedSelector } from '../hooks/typedSelector.hook';
 interface IGalleryProps {
   places: Array<IGalleryItemProps>;
 }
@@ -19,12 +20,9 @@ interface IGalleryItemProps {
 
 const useStyles = makeStyles((theme: Theme) => ({
   wrap: {
-    marginTop: 100,
-    marginBottom: 200,
+    marginTop: theme.spacing(5),
+    marginBottom: theme.spacing(4),
     color: theme.palette.primary.contrastText,
-  },
-  container: {
-    maxWidth: '70vw',
   },
   font: {
     fontFamily: "'Caveat', cursive",
@@ -50,6 +48,8 @@ const AttractionsGallery: React.FunctionComponent<IGalleryProps> = ({
   places,
 }) => {
   const classes = useStyles();
+  const { dictionary } = useTypedSelector((state) => state.laguage);
+  const { COUNTRY_ATTRACTION } = dictionary;
   const images = places.map((item: IGalleryItemProps) => ({
     name: item.name,
     original: item.photoUrl,
@@ -72,9 +72,9 @@ const AttractionsGallery: React.FunctionComponent<IGalleryProps> = ({
 
   return (
     <Grid className={classes.wrap} container>
-      <Container className={classes.container}>
-        <Typography align="center" color="textPrimary" variant="h2">
-          Country attractions
+      <Container>
+        <Typography color="textPrimary" variant="h3">
+          {COUNTRY_ATTRACTION}
         </Typography>
         <AttractionName />
         <ImageGallery
