@@ -69,7 +69,7 @@ function Search() {
         autoFocus={true}
         autoComplete="off"
         type="search"
-        value={searchText || ''}
+        value={searchText}
         onChange={handleChange}
         className={classes.search}
         InputLabelProps={{ shrink: true }}
