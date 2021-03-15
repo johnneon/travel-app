@@ -18,12 +18,12 @@ import {
 } from '@material-ui/core';
 import { useTypedSelector } from '../../hooks/typedSelector.hook';
 import SearchIcon from '@material-ui/icons/Search';
-import LoginForm from '../LoginForm/LoginForm';
 import { useAction } from '../../hooks/action.hook';
 import { variables } from '../../data/variables';
 import { NavLink } from 'react-router-dom';
 
 import logo from '../../assets/logo/logo.svg';
+import AuthCard from '../LoginForm/AuthCard';
 
 const { EN, RU, UA } = variables;
 
@@ -180,7 +180,7 @@ function Header() {
               </Select>
             </StyledForm>
 
-            <LoginForm />
+            <AuthCard />
           </div>
         </Toolbar>
       </Container>

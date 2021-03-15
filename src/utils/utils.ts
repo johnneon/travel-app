@@ -107,3 +107,11 @@ export const monthName = (n: number, lang: string) => {
       return monthsEn[n];
   }
 };
+
+export const checkFieldValidity = (field: string, regExp: RegExp) => {
+  if (field.match(regExp)) {
+    return true;
+  }
+
+  return false;
+};
