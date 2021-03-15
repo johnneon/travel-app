@@ -100,11 +100,11 @@ const MainSlider: React.FunctionComponent = (props) => {
   const calculateValue = () => {
     const percent = 100;
     if (props?.children && Array.isArray(props.children)) {
-      return +(percent / props.children.flat().length * (currentSlide + 1));
+      return +(percent / props.children.length * (currentSlide + 1));
     }
   };
 
-  const progress = calculateValue();
+  const progress = calculateValue() || 0;
 
   const settings = {
     speed: 500,
@@ -141,7 +141,7 @@ const MainSlider: React.FunctionComponent = (props) => {
           <Typography className={classes.current} variant='h3' component='span' color='secondary'>
             {currentSlide + 1}
           </Typography>
-            /6
+            /{props?.children && Array.isArray(props.children) ? props.children.length : 6}
           </Typography>
         </Grid>
       </Grid>

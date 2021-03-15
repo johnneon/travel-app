@@ -3,11 +3,11 @@ import { Dispatch } from "react";
 import { ICountriesAction, CountriesActionTypes } from "../../types/countries";
 
 
-export const fetchAllCountries = () => {
+export const fetchAllCountries = (lang: string) => {
   return async (dispatch: Dispatch<ICountriesAction>) => {
     try {
       dispatch({ type: CountriesActionTypes.FETCH_COUNTRIES,  });
-      const response = await axios.get('https://travel-app-rss.herokuapp.com/countries');
+      const response = await axios.get(`https://travel-app-rss.herokuapp.com/countries/?lang=${lang}`);
       dispatch({ type: CountriesActionTypes.FETCH_COUNTRIES_SUCCESS, payload: response.data });
     } catch (e) {
       dispatch({ type: CountriesActionTypes.FETCH_COUNTRIES_ERORR, payload: 'Got an error' });

@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
 import { MediaPlayer } from '../components/MediaPlayer';
 import { IRootState } from '../store/redusers';
+import { variables } from '../data/variables';
 
 const mapStateToProps = (state: IRootState) => {
   const { videoUrl } = state?.country?.country;
   
-  const parseRegExp = /.*(?:youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=)([^#&?]*).*/;
+  const parseRegExp = variables.YOUTOBE_REG_EXP;
   
   const persedUrl = videoUrl.match(parseRegExp) || [];
 

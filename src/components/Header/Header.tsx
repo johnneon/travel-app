@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   createStyles,
   makeStyles,
@@ -9,16 +9,22 @@ import {
   AppBar,
   Toolbar,
   FormControl,
-  NativeSelect,
-  Link,
+  Select,
+  MenuItem,
   Container,
   Typography,
 } from '@material-ui/core';
 
 import LoginForm from '../LoginForm/LoginForm';
 import Search from './Search';
+import { useTypedSelector } from '../../hooks/typedSelector.hook';
+import { useAction } from '../../hooks/action.hook';
+import { variables } from '../../data/variables';
+import { NavLink } from 'react-router-dom';
 
 import logo from '../../assets/logo/logo.svg';
+
+const { EN, RU, UK } = variables;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,13 +32,15 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
     header: {
-      backgroundColor: 'transparent',
+      backgroundFilter: 'blur(13px)',
+      backgroundColor: 'rgba(0,0,0,.2)',
       boxShadow: 'none',
     },
     logoLink: {
       display: 'flex',
       alignItems: 'center',
-      '&:hover': { textDecoration: 'none' },
+      textDecoration: 'none',
+      '&:hover': {textDecoration: 'none',},
     },
     logo: {
       width: 50,
@@ -59,7 +67,10 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       minHeight: 90,
       '@media(max-width: 600px)': {
-        padding: 0,
+        padding: '5px 0',
+      },
+      '@media(max-width: 514px)': {
+        minHeight: 'auto',
       },
     },
     loginButton: {
@@ -89,28 +100,54 @@ const StyledForm = withStyles({
 
 function Header() {
   const classes = useStyles();
+  const { changeLanguage } = useAction();
+  const { dictionary } = useTypedSelector((state) => state.laguage);
+  const { TRAVEL_APP, SEARCH } = dictionary;
+  const [language, setLanguage] = useState(EN);
+  const [open, setOpen] = useState(false);
+
+  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    changeLanguage(event.target.value as string);
+    setLanguage(event.target.value as string);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   return (
-    <AppBar position="absolute" className={classes.header}>
+    <AppBar position="fixed" className={classes.header}>
       <Container>
         <Toolbar className={classes.headerRow}>
-          <Link href="/" className={classes.logoLink}>
+          <NavLink to="/" className={classes.logoLink}>
             <img src={logo} alt="logo" className={classes.logo} />
             <Typography
               variant="h1"
               component="h2"
               className={classes.logoTitle}>
-              TRAVEL
+              {TRAVEL_APP}
             </Typography>
-          </Link>
+          </NavLink>
           <div className={classes.headerRow}>
             <Search />
 
             <StyledForm>
-              <NativeSelect name="lang" inputProps={{ 'aria-label': 'lang' }}>
-                <option value={'en'}>EN</option>
-                <option value={'ru'}>RU</option>
-                <option value={'third'}>Third</option>
-              </NativeSelect>
+              <Select
+                open={open}
+                onClose={handleClose}
+                onOpen={handleOpen}
+                value={language || 'EN'}
+                onChange={handleChange}
+                inputProps={{ 'aria-label': 'lang' }}
+              >
+                <MenuItem value={EN}>EN</MenuItem>
+                <MenuItem value={RU}>RU</MenuItem>
+                <MenuItem value={UK}>UK</MenuItem>
+              </Select>
             </StyledForm>
 
             <LoginForm />

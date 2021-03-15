@@ -8,6 +8,7 @@ import {
   Typography
 } from '@material-ui/core';
 import { Parallax } from 'react-parallax';
+import { useTypedSelector } from '../hooks/typedSelector.hook';
 
 interface IMainScreenProps {
   description: string;
@@ -44,6 +45,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const MainScreen: React.FunctionComponent<IMainScreenProps> = ({ description, imageUrl, name, capital }) => {
   const classes = useStyles();
+  const { dictionary } = useTypedSelector((state) => state.laguage);
+  const { COUNTRY, CAPITAL } = dictionary;
 
   return (
     <Parallax
@@ -60,14 +63,12 @@ const MainScreen: React.FunctionComponent<IMainScreenProps> = ({ description, im
         <Container>
           <Box className={classes.textContainer}>
             <Typography variant="h1">
-              Country: 
-              <Typography component="span" className={classes.font} variant="h1">
+              {COUNTRY}: <Typography component="span" className={classes.font} variant="h1">
                 {name}
               </Typography>
             </Typography>
             <Typography variant="h2">
-              Capital: 
-              <Typography component="span" className={classes.font} variant="h2">
+              {CAPITAL}: <Typography component="span" className={classes.font} variant="h2">
                 {capital}
               </Typography>
             </Typography>

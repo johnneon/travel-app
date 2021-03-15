@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useAction } from '../hooks/action.hook';
 import { useTypedSelector } from '../hooks/typedSelector.hook';
 import {
@@ -8,9 +8,11 @@ import {
   Box,
   CircularProgress,
   makeStyles,
-  Theme
+  Theme,
+  Paper,
 } from '@material-ui/core';
 import DataMainScreen from '../containers/ DataMainScreen';
+import DataAttractionsGallery from '../containers/DataAttractionsGallery';
 import DataMediaPlayer from '../containers/DataMediaPlayer';
 import MapWithCoords from '../containers/MapWithCoords';
 import WidgetPanel from '../components/WidgetPanel';
@@ -24,37 +26,48 @@ const useStyles = makeStyles((theme: Theme) => ({
     background: theme.palette.primary.main,
     position: 'relative',
   },
+  backdrop: {
+    zIndex: theme.zIndex.snackbar + 1,
+    color: '#fff',
+  },
 }));
 
 const CountryPage: React.FunctionComponent = () => {
   const classes = useStyles();
-  const { loading, error } = useTypedSelector((state) => state.country);
   const { id } = useParams<ParamTypes>();
+  const { country, laguage } = useTypedSelector((state) => state);
   const { fetchCountry } = useAction();
+  const { loading, error } = country;
+  const { lang } = laguage;
   
   useEffect(() => {
-    fetchCountry(id);
-  }, [id]);
+    fetchCountry(id, lang);
+  }, [id, lang]);
 
   if (loading) {
     return (
-      <Backdrop open={loading}>
-        <CircularProgress color="secondary" />
-      </Backdrop>
+      <Paper style={{height: '100vh'}}>
+        <Backdrop open={loading}>
+          <CircularProgress color="secondary" />
+        </Backdrop>
+      </Paper>
     )
   }
 
   if (error) {
-    return <h1>Error is {error}</h1>
+    console.warn(error);
   }
 
   return (
     <Box className={classes.wrap}>
       <DataMainScreen />
+      <DataAttractionsGallery />
       <DataMediaPlayer />
       <MapWithCoords />
       <WidgetPanel />
-      <Link to={'/'}>Back</Link>
+      <Backdrop open={loading} className={classes.backdrop}>
+        <CircularProgress color="secondary" />
+      </Backdrop>
     </Box>
   );
 };

@@ -1,6 +1,7 @@
-import { Box, Container, makeStyles, Theme, Typography } from '@material-ui/core';
 import React from 'react';
+import { Box, Container, makeStyles, Theme, Typography } from '@material-ui/core';
 import YouTube from 'react-youtube';
+import { useTypedSelector } from '../hooks/typedSelector.hook';
 
 export interface IMediaPlayerProps {
   videoId: string;
@@ -30,6 +31,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export function MediaPlayer ({ videoId }: IMediaPlayerProps) {
   const classes = useStyles();
+  const { COUNTRY_OVERVIEW } = useTypedSelector((state) => state.laguage.dictionary);
 
   const opts = {
     width: '100%',
@@ -39,7 +41,7 @@ export function MediaPlayer ({ videoId }: IMediaPlayerProps) {
   return (
     <Box className={classes.wrap}>
       <Container>
-        <Typography color="textPrimary" variant="h3">Country overview</Typography>
+        <Typography color="textPrimary" variant="h3">{COUNTRY_OVERVIEW}</Typography>
         <Box className={classes.videoContainer}>
           <YouTube videoId={videoId} opts={opts} />
         </Box>

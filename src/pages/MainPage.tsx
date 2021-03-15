@@ -10,12 +10,13 @@ import {
   makeStyles,
   Typography,
   Backdrop,
-  CircularProgress
+  CircularProgress,
+  Theme,
 } from '@material-ui/core';
 import MainSlider from '../components/MainSlider';
 import CountryCard from '../components/CountryCard';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
   wrap: {
     display: 'flex',
     alignItems: 'center',
@@ -30,27 +31,26 @@ const useStyles = makeStyles({
   font: {
     fontFamily: "'Caveat', cursive",
   },
-});
+  backdrop: {
+    zIndex: theme.zIndex.snackbar + 1,
+    color: '#fff',
+  },
+}));
 
 const MainPage: React.FunctionComponent = () => {
   const classes = useStyles();
-  const { countries, loading, error } = useTypedSelector((state) => state.countries);
+  const state = useTypedSelector((state) => state);
+  const { countries, loading, error } = state.countries;
+  const { dictionary, lang } = state.laguage;
+  const { DOSCOVER, PLANET, WITH, TRAVEL_APP } = dictionary;
   const { fetchAllCountries } = useAction();
 
   useEffect(() => {
-    fetchAllCountries();
-  }, []);
-
-  if (loading) {
-    return (
-      <Backdrop open={loading}>
-        <CircularProgress color="secondary" />
-      </Backdrop>
-    )
-  }
+    fetchAllCountries(lang);
+  }, [lang]);
 
   if (error) {
-    return <h1>Error is {error}</h1>
+    console.warn(error);
   }
 
   return (
@@ -61,16 +61,13 @@ const MainPage: React.FunctionComponent = () => {
           color="textPrimary"
           variant="h1"
         >
-          Discover the 
-          <Typography
+          {DOSCOVER} <Typography
             align="center"
             color="secondary"
             variant="h1"
             component="span"
             className={classes.font}
-          >
-            planet
-          </Typography>
+          >{PLANET}</Typography>
         </Typography>
         <Typography
           align="center"
@@ -83,10 +80,8 @@ const MainPage: React.FunctionComponent = () => {
             variant="h2"
             component="span"
             className={classes.font}
-          >
-            with 
-          </Typography>
-            Travel-app
+          >{WITH} </Typography>
+          {TRAVEL_APP}
         </Typography>
         <MainSlider>
           {countries.length > 0 ? countries.map((country, ind) => {
@@ -100,30 +95,11 @@ const MainPage: React.FunctionComponent = () => {
               />
             )
           }) : ''}
-          {countries.length > 0 ? countries.map((country, ind) => {
-            const { id, name, capital, imageUrl } = country;
-            return (
-              <CountryCard
-                name={name} id={id}
-                capital={capital}
-                imageUrl={imageUrl}
-                key={ind}
-              />
-            )
-          }) : ''}
-          {countries.length > 0 ? countries.map((country, ind) => {
-            const { id, name, capital, imageUrl } = country;
-            return (
-              <CountryCard
-                name={name} id={id}
-                capital={capital}
-                imageUrl={imageUrl}
-                key={ind}
-              />
-            )
-          }) : ''}
         </MainSlider>
       </Container>
+      <Backdrop open={loading} className={classes.backdrop}>
+        <CircularProgress color="secondary" />
+      </Backdrop>
     </Box>
   );
 };
