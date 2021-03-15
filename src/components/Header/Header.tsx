@@ -25,7 +25,7 @@ import { NavLink } from 'react-router-dom';
 
 import logo from '../../assets/logo/logo.svg';
 
-const { EN, RU, UK } = variables;
+const { EN, RU, UA } = variables;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -114,7 +114,7 @@ const StyledForm = withStyles({
 function Header() {
   const classes = useStyles();
   const { changeLanguage } = useAction();
-  const { dictionary } = useTypedSelector((state) => state.laguage);
+  const { dictionary } = useTypedSelector((state) => state.language);
   const { TRAVEL_APP, SEARCH } = dictionary;
   const [language, setLanguage] = useState(EN);
   const [open, setOpen] = useState(false);
@@ -176,7 +176,7 @@ function Header() {
               >
                 <MenuItem value={EN}>EN</MenuItem>
                 <MenuItem value={RU}>RU</MenuItem>
-                <MenuItem value={UK}>UK</MenuItem>
+                <MenuItem value={UA}>UA</MenuItem>
               </Select>
             </StyledForm>
 

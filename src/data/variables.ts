@@ -5,6 +5,6 @@ export const variables = {
   WEATHER_API_KEY: 'eb7290df8210ec1e343811c44b869b32',
   EN: 'en',
   RU: 'ru',
-  UK: 'uk',
+  UA: 'ua',
   tSign: '°C',
 }

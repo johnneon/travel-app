@@ -7,7 +7,7 @@ import { languageReduser } from "./languageReduser";
 export const rootReducer = combineReducers({
   countries: countriesReduser,
   country: countryReduser,
-  laguage: languageReduser,
+  language: languageReduser,
 });
 
 export type IRootState = ReturnType<typeof rootReducer>;

@@ -57,7 +57,7 @@ const Time: React.FunctionComponent<TimeProps> = ({
   timezoneOffset = 0,
 }) => {
   const classes = useStyles();
-  const { lang } = useTypedSelector((state) => state.laguage);
+  const { lang } = useTypedSelector((state) => state.language);
 
   const timerRef = useRef<any>({});
 
@@ -123,7 +123,7 @@ const Time: React.FunctionComponent<TimeProps> = ({
 
 const mapStateToProps = (state: IRootState) => {
   const { timezone } = state?.country?.country;
-  const { LOCAL_TIME } = state?.laguage?.dictionary;
+  const { LOCAL_TIME } = state?.language?.dictionary;
 
   return {
     timezoneOffset: timezone,

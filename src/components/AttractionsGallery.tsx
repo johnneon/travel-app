@@ -48,7 +48,7 @@ const AttractionsGallery: React.FunctionComponent<IGalleryProps> = ({
   places,
 }) => {
   const classes = useStyles();
-  const { dictionary } = useTypedSelector((state) => state.laguage);
+  const { dictionary } = useTypedSelector((state) => state.language);
   const { COUNTRY_ATTRACTION } = dictionary;
   const images = places.map((item: IGalleryItemProps) => ({
     name: item.name,

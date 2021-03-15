@@ -2,7 +2,7 @@ import { Dispatch } from "react";
 import { dictionary as importedDictionary, LanguageActionTypes, ICangeLanguageAction } from "../../types/dictionary";
 import { variables } from '../../data/variables';
 
-const { EN, RU, UK } = variables;
+const { EN, RU, UA } = variables;
 
 export const changeLanguage = (lang: string) => {
   return (dispatch: Dispatch<ICangeLanguageAction>) => {
@@ -15,8 +15,8 @@ export const changeLanguage = (lang: string) => {
       case RU:
         dictionary = importedDictionary.ru;
         break;
-      case UK:
-        dictionary = importedDictionary.uk;
+      case UA:
+        dictionary = importedDictionary.ua;
         break;
       default:
         dictionary = importedDictionary.en;

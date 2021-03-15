@@ -41,7 +41,7 @@ const MainPage: React.FunctionComponent = () => {
   const classes = useStyles();
   const state = useTypedSelector((state) => state);
   const { countries, loading, error } = state.countries;
-  const { dictionary, lang } = state.laguage;
+  const { dictionary, lang } = state.language;
   const { DOSCOVER, PLANET, WITH, TRAVEL_APP } = dictionary;
   const { fetchAllCountries } = useAction();
 

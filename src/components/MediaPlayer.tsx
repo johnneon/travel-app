@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 export function MediaPlayer ({ videoId }: IMediaPlayerProps) {
   const classes = useStyles();
-  const { COUNTRY_OVERVIEW } = useTypedSelector((state) => state.laguage.dictionary);
+  const { COUNTRY_OVERVIEW } = useTypedSelector((state) => state.language.dictionary);
 
   const opts = {
     width: '100%',

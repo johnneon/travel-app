@@ -15,7 +15,7 @@ export const en = {
   LOCAL_TIME: 'The local time',
   TODAY: "Today",
   FEELS: "Feels like",
-  WIND_SPEEN: "Wind speed is",
+  WIND_SPEED: "Wind speed is",
   WIND_SPEED_UNIT: "m/s",
   AIR_HUMINDITY: "Air humidity",
   COUNTRY_ATTRACTION: 'Country attractions',
@@ -38,13 +38,13 @@ export const ru = {
   LOCAL_TIME: 'Местное время',
   TODAY: "Сегодня",
   FEELS: "Чувствуется как",
-  WIND_SPEEN: "Скорость ветра",
+  WIND_SPEED: "Скорость ветра",
   WIND_SPEED_UNIT: "м/с",
   AIR_HUMINDITY: "Влажность воздуха",
   COUNTRY_ATTRACTION: 'Достопримечательности страны',
 };
 
-export const uk = {
+export const ua = {
   DOSCOVER: 'Відкрийте для себе',
   PLANET: 'планету',
   WITH: 'разом з',
@@ -61,7 +61,7 @@ export const uk = {
   LOCAL_TIME: 'Місцевий час',
   TODAY: "Сьогодні",
   FEELS: "Відчувається як",
-  WIND_SPEEN: "Швидкість вітру",
+  WIND_SPEED: "Швидкість вітру",
   WIND_SPEED_UNIT: "м/с",
   AIR_HUMINDITY: "Вологість повітря",
   COUNTRY_ATTRACTION: 'Визначні місця країни',

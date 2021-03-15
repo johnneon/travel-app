@@ -1,6 +1,6 @@
-import { ru, en, uk } from '../data/dictionary';
+import { ru, en, ua } from '../data/dictionary';
 
-export const dictionary = { ru, en, uk };
+export const dictionary = { ru, en, ua };
 
 export interface ILanguageState {
   lang: string;

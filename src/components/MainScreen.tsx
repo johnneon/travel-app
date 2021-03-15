@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const MainScreen: React.FunctionComponent<IMainScreenProps> = ({ description, imageUrl, name, capital }) => {
   const classes = useStyles();
-  const { dictionary } = useTypedSelector((state) => state.laguage);
+  const { dictionary } = useTypedSelector((state) => state.language);
   const { COUNTRY, CAPITAL } = dictionary;
 
   return (
