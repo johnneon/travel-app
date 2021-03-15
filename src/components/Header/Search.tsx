@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useAction } from '../../hooks/action.hook';
 import SearchIcon from '@material-ui/icons/Search';
 import {
   createStyles,
@@ -45,6 +46,14 @@ const StyledForm = withStyles({
 
 function Search() {
   const classes = useStyles();
+  const { changeSearch } = useAction();
+  const [searchText, setSearchText] = useState('');
+
+  const handleChange = (event: React.ChangeEvent<{ value: string }>) => {
+    changeSearch(event.target.value as string);
+    setSearchText(event.target.value as string);
+  };
+
   return (
     <StyledForm className={classes.form}>
       <IconButton
@@ -60,6 +69,8 @@ function Search() {
         autoFocus={true}
         autoComplete="off"
         type="search"
+        value={searchText || ''}
+        onChange={handleChange}
         className={classes.search}
         InputLabelProps={{ shrink: true }}
       />
