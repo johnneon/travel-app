@@ -40,12 +40,15 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
       textDecoration: 'none',
-      '&:hover': {textDecoration: 'none',},
+      '&:hover': { textDecoration: 'none' },
     },
     logo: {
       width: 50,
       '@media(max-width: 600px)': {
         width: 40,
+      },
+      '&:hover': {
+        transform: 'scale(1.05)',
       },
     },
     logoTitle: {
@@ -55,6 +58,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
       '@media(max-width: 720px)': {
         display: 'none',
+      },
+      '&:hover': {
+        opacity: 0.7,
       },
     },
     form: {

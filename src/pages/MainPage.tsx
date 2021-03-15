@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { useAction } from '../hooks/action.hook';
 import { useTypedSelector } from '../hooks/typedSelector.hook';
+import { ICountriesData } from '../types/countries';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import {
@@ -54,13 +55,12 @@ const MainPage: React.FunctionComponent = () => {
     console.warn(error);
   }
 
-  const searchFilter = (country: any) => {
+  const searchFilter = (country: ICountriesData) => {
     if (searchText.length > 0) {
       if (
         country.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1 ||
         country.capital.toLowerCase().indexOf(searchText.toLowerCase()) > -1
       ) {
-        console.log('match');
         return country;
       } else {
         return false;
