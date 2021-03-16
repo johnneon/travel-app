@@ -79,10 +79,10 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ activeTab, action }
 
   const setFormDataHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event?.currentTarget?.files) {
-      const forma = new FormData();
-      forma.append('avatar', event.currentTarget.files[0]);
-      forma.append('abc', 'abs');
-      console.log(forma);
+      // const forma = new FormData();
+      // forma.append('avatar', event.currentTarget.files[0]);
+      // forma.append('abc', 'abs');
+      // console.log(forma);
       setFormData({ ...formData, [event.target.name]: event.currentTarget.files[0] });
     }
 
