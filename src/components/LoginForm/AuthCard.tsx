@@ -9,7 +9,7 @@ import {
   Theme,
   makeStyles,
   createStyles,
-  CircularProgress
+  CircularProgress,
 } from '@material-ui/core/';
 import AuthFormTabs from './AuthTabs';
 import AuthForm from './AuthForm';
@@ -17,9 +17,7 @@ import { useAction } from '../../hooks/action.hook';
 import { IFetchUserData } from '../../types/user';
 import { useTypedSelector } from '../../hooks/typedSelector.hook';
 import { useSnackbar } from 'notistack';
-
-interface IAuthCardProps {
-}
+import logo from '../../assets/logo/logo.svg';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,21 +25,12 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-    },
-    paper: {
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
-      textAlign: 'center',
-      outline: 'none',
-    },
-    input: {
-      display: 'block',
-      padding: 5,
-      margin: 15,
-      width: 250,
+      color: theme.palette.primary.contrastText,
     },
     logo: {
+      display: 'block',
       width: 50,
+      margin: '0 auto',
     },
     loginButton: {
       marginLeft: theme.spacing(4),
@@ -55,9 +44,10 @@ const useStyles = makeStyles((theme: Theme) =>
     auth__form: {
       padding: '0 20px 20px',
       maxWidth: '380px',
-      backgroundColor: theme.palette.text.primary,
+      backgroundColor: theme.palette.primary.main,
       borderRadius: '5px',
       boxShadow: theme.shadows[5],
+      outline: 'none',
     },
     backdrop: {
       zIndex: 40,
@@ -66,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const AuthCard: React.FunctionComponent<IAuthCardProps> = () => {
+const AuthCard: React.FunctionComponent = () => {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
   const [open, setOpen] = useState<boolean>(false);
@@ -101,11 +91,11 @@ const AuthCard: React.FunctionComponent<IAuthCardProps> = () => {
     setActiveTab(tabIndex);
   };
 
-  const sendRegistrationRequest = async (data: IFetchUserData) => {
+  const sendRegistrationRequest = async (data: FormData) => {
     registerUser(data);
   };
 
-  const sendLoginRequest = async (data: IFetchUserData) => {
+  const sendLoginRequest = async (data: FormData) => {
     loginUser(data);
   };
 
@@ -144,6 +134,7 @@ const AuthCard: React.FunctionComponent<IAuthCardProps> = () => {
                   changeActiveTabHandler={changeActiveTabHandler}
                 />
               </Grid>
+              <img src={logo} alt="Logo" className={classes.logo} />
               <Grid item>
                 <AuthForm
                   activeTab={activeTab}

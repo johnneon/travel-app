@@ -15,7 +15,6 @@ function App() {
       <CustomThemeProvider>
         <Provider store={store}>
           <SnackbarProvider
-            // content={(key, message) => <Snackbar snackKey={key} {...message} />}
             maxSnack={3}
             autoHideDuration={2000}
             anchorOrigin={{

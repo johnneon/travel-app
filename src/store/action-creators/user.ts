@@ -3,27 +3,34 @@ import axios from "axios";
 import { Dispatch } from "react";
 import { IUserAction, UserActionTypes, IFetchUserData, initialUserState } from "../../types/user";
 
-export const registerUser = (data: IFetchUserData) => {
+export const registerUser = (data: FormData) => {
   return async (dispatch: Dispatch<IUserAction>) => {
     try {
+      console.log(data);
       dispatch({ type: UserActionTypes.FETCH_USER,  });
-      const response = await axios.post(`https://travel-app-rss.herokuapp.com/auth/register`, {
-        ...data,
+      const response = await axios.post('http://localhost:8888/auth/login', data, {
+        headers: {
+          "Contetnt-Type":"multipart/form-data" 
+        }
       });
       saveUserData(response.data);
       dispatch({ type: UserActionTypes.FETCH_USER_SUCCESS, payload: response.data });
       dispatch({ type: UserActionTypes.SHOW_MESSAGE, payload: 'User created successfully!' });
     } catch (error) {
-      dispatch({ type: UserActionTypes.FETCH_USER_ERORR, payload: error });
+      if (error?.response?.data?.errors?.detail) {
+        dispatch({ type: UserActionTypes.FETCH_USER_ERORR, payload: error?.response?.data?.errors?.detail });
+      } else {
+        dispatch({ type: UserActionTypes.FETCH_USER_ERORR, payload: 'Got an error' });
+      }
     }
   };
 };
 
-export const loginUser = (data: IFetchUserData) => {
+export const loginUser = (data: FormData) => {
   return async (dispatch: Dispatch<IUserAction>) => {
     try {
       dispatch({ type: UserActionTypes.FETCH_USER,  });
-      const response = await axios.post(`https://travel-app-rss.herokuapp.com/auth/login`, {
+      const response = await axios.post('https://travel-app-rss.herokuapp.com/auth/register', {
         ...data,
         'Content-Type': 'application/json',
       });

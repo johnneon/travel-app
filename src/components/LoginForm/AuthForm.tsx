@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   Grid,
   Button,
   TextField,
   makeStyles,
+  withStyles,
+  Theme,
+  Fab
 } from '@material-ui/core/';
+import AddIcon from "@material-ui/icons/Add";
 import { checkFieldValidity } from '../../utils/utils';
 import { variables } from '../../data/variables';
 import { IFetchUserData } from '../../types/user';
@@ -13,7 +17,7 @@ const { FULLNAME_REGEXP, EMAIL_REGEXP, PASSWORD_REGEXP } = variables;
 
 interface IAuthFormProps {
   activeTab: number;
-  action: (data: IFetchUserData) => void;
+  action: (data: FormData) => void;
 }
 
 const useStyles = makeStyles({
@@ -25,8 +29,42 @@ const useStyles = makeStyles({
   }
 });
 
+const CssTextField = withStyles((theme: Theme) => ({
+  root: {
+    marginBottom: 15,
+    outline: 'none',
+    '& label.Mui-focused': {
+      color: `${theme.palette.primary.contrastText} !important`,
+    },
+    '& .MuiInputLabel-formControl': {
+      color: `${theme.palette.primary.contrastText} !important`,
+      opacity: .7,
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: theme.palette.primary.light,
+    },
+    '& .MuiInputBase-input': {
+      color: `${theme.palette.primary.contrastText} !important`,
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: theme.palette.primary.light,
+        opacity: .7,
+      },
+      '&:hover fieldset': {
+        opacity: 1,
+      },
+    },
+    '&.Mui-focused': {
+      borderColor: theme.palette.primary.contrastText,
+      opacity: 1,
+    },
+  },
+}))(TextField);
+
 const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ activeTab, action }) => {
   const classes = useStyles();
+  const inputFile = useRef<HTMLInputElement>(null);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -40,6 +78,15 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ activeTab, action }
   });
 
   const setFormDataHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event?.currentTarget?.files) {
+      const forma = new FormData();
+      forma.append('avatar', event.currentTarget.files[0]);
+      forma.append('abc', 'abs');
+      console.log(forma);
+      setFormData({ ...formData, [event.target.name]: event.currentTarget.files[0] });
+    }
+
+    
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
@@ -66,7 +113,25 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ activeTab, action }
       return;
     }
 
-    action(formData);
+    const postData = new FormData();
+
+    for (let key in formData) {
+      // @ts-ignore
+      console.log(key, formData[key]);
+      if(key === 'avatar') {                
+        // @ts-ignore
+        for (let key in formData['avatar']) {
+          // @ts-ignore
+          postData.append('avatar', formData['avatar'][key]);
+        }  
+      } else {
+        // @ts-ignore
+        postData.append(key, formData[key]);
+      }
+    }
+    console.log(postData);
+
+    action(postData);
   };
 
   const pressHandler = (event: React.KeyboardEvent) => {
@@ -84,12 +149,11 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ activeTab, action }
   >
     {!activeTab && (
       <Grid item>
-        <TextField
+        <CssTextField
           required
           fullWidth
           size="small"
           variant="outlined"
-          color="primary"
           label="Name"
           type="text"
           name="fullName"
@@ -102,7 +166,7 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ activeTab, action }
       </Grid>
     )}
     <Grid item>
-      <TextField
+      <CssTextField
         required
         fullWidth
         size="small"
@@ -118,7 +182,7 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ activeTab, action }
       />
     </Grid>
     <Grid item>
-      <TextField
+      <CssTextField
         required
         fullWidth
         size="small"
@@ -132,6 +196,27 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ activeTab, action }
         onChange={setFormDataHandler}
         onKeyPress={pressHandler}
       />
+    </Grid>
+    <Grid item>
+    <label htmlFor="upload-photo">
+      <input
+          style={{ display: "none" }}
+          id="upload-photo"
+          name="avatar"
+          type="file"
+          onChange={setFormDataHandler}
+          // ref={inputFile}
+        />
+        <Fab
+          color="secondary"
+          size="small"
+          component="span"
+          aria-label="add"
+          variant="extended"
+        >
+          <AddIcon /> Upload photo
+        </Fab>
+    </label>
     </Grid>
     <Grid item xs={12} sm={5}>
       <Button
