@@ -1,4 +1,5 @@
-import React, { useState, Fragment } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, Fragment, useEffect, useCallback } from 'react';
 import {
   Modal,
   Button,
@@ -14,6 +15,8 @@ import AuthFormTabs from './AuthTabs';
 import AuthForm from './AuthForm';
 import { useAction } from '../../hooks/action.hook';
 import { IFetchUserData } from '../../types/user';
+import { useTypedSelector } from '../../hooks/typedSelector.hook';
+import { useSnackbar } from 'notistack';
 
 interface IAuthCardProps {
 }
@@ -57,18 +60,35 @@ const useStyles = makeStyles((theme: Theme) =>
       boxShadow: theme.shadows[5],
     },
     backdrop: {
-      zIndex: theme.zIndex.snackbar + 1,
+      zIndex: 40,
       color: '#fff',
     },
   }),
 );
 
-const AuthCard: React.FunctionComponent<IAuthCardProps> = (props) => {
+const AuthCard: React.FunctionComponent<IAuthCardProps> = () => {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
   const [open, setOpen] = useState<boolean>(false);
-  const { registerUser, loginUser } = useAction();
+  const { registerUser, loginUser, clearMessage,  } = useAction();
+  const { loading, error, successMessage } = useTypedSelector((store) => store.user);
+  const { enqueueSnackbar } = useSnackbar();
 
+  const showSnackbar = useCallback((message: string, variant: 'success' | 'error') => {
+    return enqueueSnackbar(message, { variant })
+  }, [enqueueSnackbar]);
+
+  useEffect(() => {
+    if (error !== '') {
+      showSnackbar(error, 'error');
+    }
+    if (successMessage !== '') {
+      setOpen(!open);
+      showSnackbar(successMessage, 'success');
+    }
+    clearMessage();
+  }, [error, successMessage]);
+  
   const handleOpen = () => {
     setOpen(true);
   };
@@ -111,32 +131,31 @@ const AuthCard: React.FunctionComponent<IAuthCardProps> = (props) => {
         }}
       >
         <Fade in={open}>
-          <Grid
-            container
-            className={classes.auth__form}
-            direction="column"
-            alignItems="stretch"
-            spacing={3}
-          >
-            <Grid item>
-              <AuthFormTabs
-                activeTab={activeTab}
-                changeActiveTabHandler={changeActiveTabHandler}
-              />
+            <Grid
+              container
+              className={classes.auth__form}
+              direction="column"
+              alignItems="stretch"
+              spacing={3}
+            >
+              <Grid item>
+                <AuthFormTabs
+                  activeTab={activeTab}
+                  changeActiveTabHandler={changeActiveTabHandler}
+                />
+              </Grid>
+              <Grid item>
+                <AuthForm
+                  activeTab={activeTab}
+                  action={activeTab ? sendLoginRequest : sendRegistrationRequest}
+                />
+                <Backdrop className={classes.backdrop} open={loading}>
+                  <CircularProgress color="secondary" />
+                </Backdrop>
+              </Grid>
             </Grid>
-            <Grid item>
-              <AuthForm
-                activeTab={activeTab}
-                action={activeTab ? sendLoginRequest : sendRegistrationRequest}
-              />
-            </Grid>
-          </Grid>
-
         </Fade>
       </Modal>
-      <Backdrop className={classes.backdrop} open={false}>
-        <CircularProgress color="primary" />
-      </Backdrop>
     </Fragment>
   );
 };

@@ -2,7 +2,8 @@ export interface IUserState {
   user: IUserData;
   loggedIn: boolean;
   loading: boolean;
-  error: null | string;
+  successMessage: string;
+  error: string;
 }
 interface IFetchUserAction {
   type: UserActionTypes.FETCH_USER;
@@ -23,6 +24,15 @@ interface ILogOutUser {
   payload: IUserData;
 }
 
+interface ISuccessMessage {
+  type: UserActionTypes.SHOW_MESSAGE;
+  payload: string;
+}
+
+interface IClearError {
+  type: UserActionTypes.CLEAR_MESSAGE;
+}
+
 export interface IUserData {
   id: string; 
   email: string; 
@@ -40,7 +50,9 @@ export enum UserActionTypes {
   FETCH_USER = 'FETCH_USER',
   FETCH_USER_SUCCESS = 'FETCH_USER_SUCCESS',
   FETCH_USER_ERORR = 'FETCH_USER_ERORR',
-  LOGOUT_USER = 'LOGOUT_USER'
+  LOGOUT_USER = 'LOGOUT_USER',
+  SHOW_MESSAGE = 'SHOW_MESSAGE',
+  CLEAR_MESSAGE = 'CLEAR_MESSAGE',
 }
 
 export const initialUserState = {
@@ -50,4 +62,10 @@ export const initialUserState = {
   token: '',
 };
 
-export type IUserAction = IFetchUserAction | IFetchUserSuccesAction | IFetchUserErrorAction | ILogOutUser;
+export type IUserAction =
+  IFetchUserAction
+  | IFetchUserSuccesAction
+  | IFetchUserErrorAction
+  | ILogOutUser
+  | IClearError
+  | ISuccessMessage;
