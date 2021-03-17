@@ -1,6 +1,6 @@
 import { variables } from '../data/variables';
 
-const { EN, RU, UK } = variables;
+const { EN, RU, UA } = variables;
 
 // Adding 0 for less 10 num
 export const addZero = (n: any) => {
@@ -27,7 +27,7 @@ export const dayName = (n: number, lang: string) => {
     "Пятница",
     "Суббота",
   ];
-  const daysUk = [
+  const daysUa = [
     "Неділя",
     "Понеділок",
     "Вівторок",
@@ -42,8 +42,8 @@ export const dayName = (n: number, lang: string) => {
       return daysEn[n];
     case RU:
       return daysRu[n];
-    case UK:
-      return daysUk[n];
+    case UA:
+      return daysUa[n];
   
     default:
       return daysEn[n];
@@ -80,7 +80,7 @@ export const monthName = (n: number, lang: string) => {
     "Ноября",
     "Декабря",
   ];
-  const monthsUk = [
+  const monthsUa = [
     "Січня",
     "Лютий",
     "Марта",
@@ -100,10 +100,18 @@ export const monthName = (n: number, lang: string) => {
       return monthsEn[n];
     case RU:
       return monthsRu[n];
-    case UK:
-      return monthsUk[n];
+    case UA:
+      return monthsUa[n];
   
     default:
       return monthsEn[n];
   }
+};
+
+export const checkFieldValidity = (field: string, regExp: RegExp) => {
+  if (field.match(regExp)) {
+    return true;
+  }
+
+  return false;
 };

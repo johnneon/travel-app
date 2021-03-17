@@ -5,6 +5,7 @@ import CountryPage from './pages/CountryPage';
 import { CustomThemeProvider } from './theme/CustomThemeProvider';
 import { Provider } from 'react-redux';
 import { store } from './store';
+import { SnackbarProvider } from 'notistack';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 
@@ -13,19 +14,28 @@ function App() {
     <BrowserRouter>
       <CustomThemeProvider>
         <Provider store={store}>
-          <Header />
-          <Switch>
-            <Route path="/" exact>
-              <MainPage />
-            </Route>
+          <SnackbarProvider
+            maxSnack={3}
+            autoHideDuration={2000}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+          >
+            <Header />
+            <Switch>
+              <Route path="/" exact>
+                <MainPage />
+              </Route>
 
-            <Route path="/country/:id" exact>
-              <CountryPage />
-            </Route>
+              <Route path="/country/:id" exact>
+                <CountryPage />
+              </Route>
 
-            <Redirect to="/" />
-          </Switch>
-          <Footer />
+              <Redirect to="/" />
+            </Switch>
+            <Footer />
+          </SnackbarProvider>
         </Provider>
       </CustomThemeProvider>
     </BrowserRouter>

@@ -5,6 +5,10 @@ export const variables = {
   WEATHER_API_KEY: 'eb7290df8210ec1e343811c44b869b32',
   EN: 'en',
   RU: 'ru',
-  UK: 'uk',
+  UA: 'ua',
   tSign: '°C',
+  FULLNAME_REGEXP: /^[\w!#$%&'*+/=?^_`{|}~\- №"@]+$/,
+  EMAIL_REGEXP: /^[\w!#$%&'*+/=?^_`{|}~]*(?:\.?[\w!#$%&'*+/=?^_`{|}~-]+)@[^.@]+\.[^.@]{2,}$/,
+  PASSWORD_REGEXP: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{6,}$/,
+  USER_DATA: 'userData',
 }

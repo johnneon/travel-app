@@ -35,10 +35,10 @@ const useStyles = makeStyles((theme: Theme) => ({
 const CountryPage: React.FunctionComponent = () => {
   const classes = useStyles();
   const { id } = useParams<ParamTypes>();
-  const { country, laguage } = useTypedSelector((state) => state);
+  const { country, language } = useTypedSelector((state) => state);
   const { fetchCountry } = useAction();
   const { loading, error } = country;
-  const { lang } = laguage;
+  const { lang } = language;
   
   useEffect(() => {
     fetchCountry(id, lang);

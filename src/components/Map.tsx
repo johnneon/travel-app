@@ -53,7 +53,7 @@ const Map: React.FunctionComponent<IMapProps> = ({ coordinates }) => {
   const [lng, lat] = coordinates;
   const screen: FullScreenHandle = useFullScreenHandle();
   const [fullScreen, setFullScreen] = useState<boolean>(screen.active);
-  const { dictionary, lang } = useTypedSelector((state) => state.laguage);
+  const { dictionary, lang } = useTypedSelector((state) => state.language);
   const { ON_THE_MAP } = dictionary;
 
   const handleChange = useCallback((fullScreen: boolean, screen: FullScreenHandle) => {

@@ -45,7 +45,7 @@ const Weather: React.FunctionComponent<WeatherProps> = ({
   },
 }) => {
   const classes = useStyles();
-  const { lang } = useTypedSelector((state) => state.laguage);
+  const { lang } = useTypedSelector((state) => state.language);
 
   const [weatherData, setWeatherData] = useState<any>({});
   
@@ -91,14 +91,14 @@ const Weather: React.FunctionComponent<WeatherProps> = ({
 
 const mapStateToProps = (state: IRootState) => {
   const { capital } = state?.country?.country;
-  const { TODAY, FEELS, WIND_SPEEN, WIND_SPEED_UNIT, AIR_HUMINDITY } = state?.laguage?.dictionary;
+  const { TODAY, FEELS, WIND_SPEED, WIND_SPEED_UNIT, AIR_HUMINDITY } = state?.language?.dictionary;
 
   return {
     cityName: capital,
     labels: {
       today: TODAY,
       feels: FEELS,
-      windSpeed: WIND_SPEEN,
+      windSpeed: WIND_SPEED,
       windSpeedUnit: WIND_SPEED_UNIT,
       airHumidity: AIR_HUMINDITY,
     }

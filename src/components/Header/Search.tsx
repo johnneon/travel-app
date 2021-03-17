@@ -48,7 +48,7 @@ const StyledForm = withStyles({
 function Search() {
   const classes = useStyles();
   const { changeSearch } = useAction();
-  const { dictionary } = useTypedSelector((state) => state.laguage);
+  const { dictionary } = useTypedSelector((state) => state.language);
   const { SEARCH } = dictionary;
   const [searchText, setSearchText] = useState('');
 

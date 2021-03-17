@@ -37,11 +37,9 @@ const useStyles = makeStyles({
 });
 
 const WidgetPanel: React.FunctionComponent = () => {
+  const classes = useStyles();
   const [open, setOpen] = useState(false);
-  const classes = useStyles(open);
-  console.log(open);
   const handleClick = () => {
-    console.log(open);
     setOpen(!open);
   }
 
