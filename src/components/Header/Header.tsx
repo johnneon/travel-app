@@ -6,10 +6,8 @@ import {
   withStyles,
 } from '@material-ui/core/styles';
 import {
-  IconButton,
   AppBar,
   Toolbar,
-  TextField,
   FormControl,
   Select,
   MenuItem,
@@ -17,7 +15,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { useTypedSelector } from '../../hooks/typedSelector.hook';
-import SearchIcon from '@material-ui/icons/Search';
+import Search from './Search';
 import { useAction } from '../../hooks/action.hook';
 import { variables } from '../../data/variables';
 import { NavLink } from 'react-router-dom';
@@ -41,34 +39,32 @@ const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       alignItems: 'center',
       textDecoration: 'none',
-      '&:hover': {textDecoration: 'none',},
+      '&:hover': { textDecoration: 'none' },
     },
     logo: {
       width: 50,
       '@media(max-width: 600px)': {
         width: 40,
       },
+      '&:hover': {
+        transform: 'scale(1.05)',
+      },
     },
     logoTitle: {
       fontSize: 30,
       fontWeight: 700,
       color: theme.palette.primary.contrastText,
-      
+
       '@media(max-width: 720px)': {
         display: 'none',
+      },
+      '&:hover': {
+        opacity: 0.7,
       },
     },
     form: {
       display: 'flex',
       flexDirection: 'row',
-    },
-    search: {
-      marginRight: theme.spacing(4),
-      '@media(max-width: 600px)': {
-        fontSize: 14,
-        marginRight: theme.spacing(2),
-        minWidth: '20px',
-      },
     },
     headerRow: {
       display: 'flex',
@@ -89,10 +85,6 @@ const useStyles = makeStyles((theme: Theme) =>
         fontSize: 14,
         marginLeft: theme.spacing(2),
       },
-    },
-    iconButton: {
-      color: theme.palette.primary.contrastText,
-      padding: '0 5px',
     },
   }),
 );
@@ -115,7 +107,7 @@ function Header() {
   const classes = useStyles();
   const { changeLanguage } = useAction();
   const { dictionary } = useTypedSelector((state) => state.language);
-  const { TRAVEL_APP, SEARCH } = dictionary;
+  const { TRAVEL_APP } = dictionary;
   const [language, setLanguage] = useState(EN);
   const [open, setOpen] = useState(false);
 
@@ -146,24 +138,7 @@ function Header() {
             </Typography>
           </NavLink>
           <div className={classes.headerRow}>
-            <StyledForm className={classes.form}>
-              <IconButton
-                type="submit"
-                className={classes.iconButton}
-                aria-label="search">
-                <SearchIcon />
-              </IconButton>
-              <TextField
-                id="search"
-                name="search"
-                placeholder={SEARCH}
-                autoFocus={true}
-                autoComplete="off"
-                type="search"
-                className={classes.search}
-                InputLabelProps={{ shrink: true }}
-              />
-            </StyledForm>
+            <Search />
 
             <StyledForm>
               <Select

@@ -20,6 +20,7 @@ code {
 .slick-list {
   margin: 0 -15px !important;
   padding: 40px 15px !important;
+  min-height: 464px;
 }
 
 .slick-slide {
@@ -29,5 +30,8 @@ code {
 @media (max-width: 514px) {
   .slick-list {
     padding: 10px 1px !important;
+  }
+  .slick-list {
+    min-height: 418px;
   }
 }

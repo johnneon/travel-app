@@ -2,8 +2,9 @@
 import React, { useEffect } from 'react';
 import { useAction } from '../hooks/action.hook';
 import { useTypedSelector } from '../hooks/typedSelector.hook';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { ICountriesData } from '../types/countries';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import {
   Box,
   Container,
@@ -42,6 +43,7 @@ const MainPage: React.FunctionComponent = () => {
   const state = useTypedSelector((state) => state);
   const { countries, loading, error } = state.countries;
   const { dictionary, lang } = state.language;
+  const { searchText } = state.search;
   const { DOSCOVER, PLANET, WITH, TRAVEL_APP } = dictionary;
   const { fetchAllCountries } = useAction();
 
@@ -53,48 +55,61 @@ const MainPage: React.FunctionComponent = () => {
     console.warn(error);
   }
 
+  const searchFilter = (country: ICountriesData) => {
+    if (searchText.length > 0) {
+      if (
+        country.name.toLowerCase().indexOf(searchText.toLowerCase()) > -1 ||
+        country.capital.toLowerCase().indexOf(searchText.toLowerCase()) > -1
+      ) {
+        return country;
+      } else {
+        return false;
+      }
+    } else {
+      return country;
+    }
+  };
+
   return (
     <Box className={classes.wrap}>
       <Container>
-        <Typography
-          align="center"
-          color="textPrimary"
-          variant="h1"
-        >
-          {DOSCOVER} <Typography
+        <Typography align="center" color="textPrimary" variant="h1">
+          {DOSCOVER}{' '}
+          <Typography
             align="center"
             color="secondary"
             variant="h1"
             component="span"
-            className={classes.font}
-          >{PLANET}</Typography>
+            className={classes.font}>
+            {PLANET}
+          </Typography>
         </Typography>
-        <Typography
-          align="center"
-          color="textPrimary"
-          variant="h3"
-        >
+        <Typography align="center" color="textPrimary" variant="h3">
           <Typography
             align="center"
             color="secondary"
             variant="h2"
             component="span"
-            className={classes.font}
-          >{WITH} </Typography>
+            className={classes.font}>
+            {WITH}{' '}
+          </Typography>
           {TRAVEL_APP}
         </Typography>
         <MainSlider>
-          {countries.length > 0 ? countries.map((country, ind) => {
-            const { id, name, capital, imageUrl } = country;
-            return (
-              <CountryCard
-                name={name} id={id}
-                capital={capital}
-                imageUrl={imageUrl}
-                key={ind}
-              />
-            )
-          }) : ''}
+          {countries.length > 0
+            ? countries.filter(searchFilter).map((country, ind) => {
+                const { id, name, capital, imageUrl } = country;
+                return (
+                  <CountryCard
+                    name={name}
+                    id={id}
+                    capital={capital}
+                    imageUrl={imageUrl}
+                    key={ind}
+                  />
+                );
+              })
+            : ''}
         </MainSlider>
       </Container>
       <Backdrop open={loading} className={classes.backdrop}>
