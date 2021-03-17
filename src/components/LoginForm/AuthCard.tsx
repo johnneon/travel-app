@@ -14,7 +14,6 @@ import {
 import AuthFormTabs from './AuthTabs';
 import AuthForm from './AuthForm';
 import { useAction } from '../../hooks/action.hook';
-import { IFetchUserData } from '../../types/user';
 import { useTypedSelector } from '../../hooks/typedSelector.hook';
 import { useSnackbar } from 'notistack';
 import logo from '../../assets/logo/logo.svg';
@@ -61,7 +60,9 @@ const AuthCard: React.FunctionComponent = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [open, setOpen] = useState<boolean>(false);
   const { registerUser, loginUser, clearMessage,  } = useAction();
-  const { loading, error, successMessage } = useTypedSelector((store) => store.user);
+  const store = useTypedSelector((store) => store);
+  const { loading, error, successMessage } = store.user;
+  const { ACCOUNT } = store.language.dictionary;
   const { enqueueSnackbar } = useSnackbar();
 
   const showSnackbar = useCallback((message: string, variant: 'success' | 'error') => {
@@ -106,7 +107,7 @@ const AuthCard: React.FunctionComponent = () => {
         onClick={handleOpen}
         className={classes.loginButton}
       >
-        Login
+        {ACCOUNT}
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"

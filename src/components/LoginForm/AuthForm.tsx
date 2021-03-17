@@ -11,7 +11,7 @@ import {
 import AddIcon from "@material-ui/icons/Add";
 import { checkFieldValidity } from '../../utils/utils';
 import { variables } from '../../data/variables';
-import { IFetchUserData } from '../../types/user';
+import { useTypedSelector } from '../../hooks/typedSelector.hook';
 
 const { FULLNAME_REGEXP, EMAIL_REGEXP, PASSWORD_REGEXP } = variables;
 
@@ -62,10 +62,27 @@ const CssTextField = withStyles((theme: Theme) => ({
   },
 }))(TextField);
 
+interface IFormData {
+  email: string;
+  password: string;
+  fullName: string;
+}
+
 const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ activeTab, action }) => {
   const classes = useStyles();
   const inputFile = useRef<HTMLInputElement>(null);
-  const [formData, setFormData] = useState({
+  const {
+    NAME,
+    INVALID_NAME,
+    EMAIL,
+    INVALID_EMAIL,
+    PASSWORD,
+    INVALID_PASSWORD,
+    UPLOAD_PHOTO,
+    SIGNIN,
+    SIGNUP,
+  } = useTypedSelector((store) => store.language.dictionary);
+  const [formData, setFormData] = useState<IFormData>({
     email: '',
     password: '',
     fullName: '',
@@ -78,15 +95,6 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ activeTab, action }
   });
 
   const setFormDataHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event?.currentTarget?.files) {
-      // const forma = new FormData();
-      // forma.append('avatar', event.currentTarget.files[0]);
-      // forma.append('abc', 'abs');
-      // console.log(forma);
-      setFormData({ ...formData, [event.target.name]: event.currentTarget.files[0] });
-    }
-
-    
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
@@ -106,6 +114,18 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ activeTab, action }
     return isPasswordValid && isEmailValid && isFullNameValid;
   };
 
+  const handleCheckFiles = () => {
+    if (
+        inputFile
+        && inputFile?.current
+        && inputFile?.current?.files
+      ) {
+      console.log(1);
+    } else {
+      console.log(2);
+    }
+  }
+
   const formActionHandler = () => {
     const isFormValid = checkFormValidity();
 
@@ -116,27 +136,12 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ activeTab, action }
     const postData = new FormData();
 
     for (let key in formData) {
-      //console.log(key, formData[key]);
-      // if(key === 'avatar') {                
-      //   // @ts-ignore
-      //   for (let key in formData['avatar']) {
-      //     // @ts-ignore
-      //     postData.append('avatar', formData['avatar'][key]);
-      //   }  
-      // } else {
-      //   // @ts-ignore
-      // }
       // @ts-ignore
       postData.append(key, formData[key]);
     }
     // @ts-ignore
     postData.append('avatar', inputFile?.current?.files[0]);
-     // @ts-ignore
-    for (var value of postData.values()) {
-      console.log(value);
-    }
-    console.log(postData);
-
+     
     action(postData);
   };
 
@@ -160,11 +165,11 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ activeTab, action }
           fullWidth
           size="small"
           variant="outlined"
-          label="Name"
+          label={NAME}
           type="text"
           name="fullName"
           className={classes.input}
-          helperText={!formValidity.fullName ? 'Name is not valid.' : ' '}
+          helperText={!formValidity.fullName ? {INVALID_NAME} : ' '}
           error={!formValidity.fullName}
           onChange={setFormDataHandler}
           onKeyPress={pressHandler}
@@ -177,11 +182,11 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ activeTab, action }
         fullWidth
         size="small"
         variant="outlined"
-        label="Email"
+        label={EMAIL}
         type="email"
         name="email"
         className={classes.input}
-        helperText={!formValidity.email ? 'Email is not valid.' : ' '}
+        helperText={!formValidity.email ? {INVALID_EMAIL} : ' '}
         error={!formValidity.email}
         onChange={setFormDataHandler}
         onKeyPress={pressHandler}
@@ -193,37 +198,40 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ activeTab, action }
         fullWidth
         size="small"
         variant="outlined"
-        label="Password"
+        label={PASSWORD}
         type="password"
         name="password"
         className={classes.input}
-        helperText={!formValidity.password ? 'Password is not valid.' : ' '}
+        helperText={!formValidity.password ? {INVALID_PASSWORD} : ' '}
         error={!formValidity.password}
         onChange={setFormDataHandler}
         onKeyPress={pressHandler}
       />
     </Grid>
-    <Grid item>
-    <label htmlFor="upload-photo">
-      <input
-          style={{ display: "none" }}
-          id="upload-photo"
-          name="avatar"
-          type="file"
-          onChange={setFormDataHandler}
-          ref={inputFile}
-        />
-        <Fab
-          color="secondary"
-          size="small"
-          component="span"
-          aria-label="add"
-          variant="extended"
-        >
-          <AddIcon /> Upload photo
-        </Fab>
-    </label>
-    </Grid>
+    {!activeTab && (
+      <Grid item>
+        <label htmlFor="upload-photo">
+          <input
+              style={{ display: "none" }}
+              id="upload-photo"
+              name="avatar"
+              type="file"
+              accept="image/jpeg,image/png,image/gif"
+              onChange={handleCheckFiles}
+              ref={inputFile}
+            />
+            <Fab
+              color="secondary"
+              size="small"
+              component="span"
+              aria-label="add"
+              variant="extended"
+            >
+              <AddIcon /> {UPLOAD_PHOTO}
+            </Fab>
+        </label>
+      </Grid>
+    )}
     <Grid item xs={12} sm={5}>
       <Button
         variant="contained"
@@ -232,7 +240,7 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ activeTab, action }
         onClick={formActionHandler}
         onKeyPress={pressHandler}
       >
-        {!activeTab ? 'Sign Up' : 'Login'}
+        {!activeTab ? `${SIGNUP}` : `${SIGNIN}`}
       </Button>
     </Grid>
   </Grid>

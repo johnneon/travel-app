@@ -1,21 +1,14 @@
 import { saveUserData, logoutUser as removeUserFromStorage } from './../../utils/storage';
 import axios from "axios";
 import { Dispatch } from "react";
-import { IUserAction, UserActionTypes, IFetchUserData, initialUserState } from "../../types/user";
+import { IUserAction, UserActionTypes, initialUserState } from "../../types/user";
 
 export const registerUser = (data: FormData) => {
   return async (dispatch: Dispatch<IUserAction>) => {
     try {
-      // @ts-ignore
-      for (var value of data.values()) {
-        console.log(value);
-      }
-      // @ts-ignore
-      for (var key of data.keys()) {
-        console.log(key);
-      }
       dispatch({ type: UserActionTypes.FETCH_USER, });
-      const response = await axios.post('https://travel-app-rss.herokuapp.com/auth/login', data); // for local back http://localhost:8888
+      const response = await axios.post('http://localhost:8888/auth/register', data); // https://travel-app-rss.herokuapp.com
+      console.log(response.data, response);
       saveUserData(response.data);
       dispatch({ type: UserActionTypes.FETCH_USER_SUCCESS, payload: response.data });
       dispatch({ type: UserActionTypes.SHOW_MESSAGE, payload: 'User created successfully!' });
@@ -33,10 +26,7 @@ export const loginUser = (data: FormData) => {
   return async (dispatch: Dispatch<IUserAction>) => {
     try {
       dispatch({ type: UserActionTypes.FETCH_USER,  });
-      const response = await axios.post('https://travel-app-rss.herokuapp.com/auth/register', {
-        ...data,
-        'Content-Type': 'application/json',
-      });
+      const response = await axios.post('http://localhost:8888/auth/login', data);
       dispatch({ type: UserActionTypes.SHOW_MESSAGE, payload: 'User logged in successfully!' });
       saveUserData(response.data);
       dispatch({ type: UserActionTypes.FETCH_USER_SUCCESS, payload: response.data });

@@ -19,6 +19,16 @@ export const en = {
   WIND_SPEED_UNIT: "m/s",
   AIR_HUMINDITY: "Air humidity",
   COUNTRY_ATTRACTION: 'Country attractions',
+  NAME: 'Name',
+  INVALID_NAME: 'Name is not valid.',
+  EMAIL: 'Email',
+  INVALID_EMAIL: 'Email is not valid.',
+  PASSWORD: 'Password',
+  INVALID_PASSWORD: 'Password is not valid.',
+  UPLOAD_PHOTO: 'Upload photo',
+  SIGNIN: 'Sign In',
+  SIGNUP: 'Sign Up',
+  ACCOUNT: 'Account',
 };
 
 export const ru = {
@@ -42,6 +52,16 @@ export const ru = {
   WIND_SPEED_UNIT: "м/с",
   AIR_HUMINDITY: "Влажность воздуха",
   COUNTRY_ATTRACTION: 'Достопримечательности страны',
+  NAME: 'Имя/ник',
+  INVALID_NAME: 'Имя/ник введены в неверном формате.',
+  EMAIL: 'Email',
+  INVALID_EMAIL: 'Email введен в неверном формате.',
+  PASSWORD: 'Пароль',
+  INVALID_PASSWORD: 'Пароль введен в неверном формате.',
+  UPLOAD_PHOTO: 'Загрузить фото',
+  SIGNIN: 'Вход',
+  SIGNUP: 'Регистрация',
+  ACCOUNT: 'Аккаунт',
 };
 
 export const ua = {
@@ -65,4 +85,14 @@ export const ua = {
   WIND_SPEED_UNIT: "м/с",
   AIR_HUMINDITY: "Вологість повітря",
   COUNTRY_ATTRACTION: 'Визначні місця країни',
+  NAME: "Ім'я",
+  INVALID_NAME: "Ім'я не дійсне.",
+  EMAIL: 'Email',
+  INVALID_EMAIL: "Електронна адреса недійсна.",
+  PASSWORD: 'Пароль',
+  INVALID_PASSWORD: 'Пароль не дійсний.',
+  UPLOAD_PHOTO: 'Завантажити фото',
+  SIGNIN: 'Увійти',
+  SIGNUP: 'Зареєструйтесь',
+  ACCOUNT: 'Аккаунт',
 };

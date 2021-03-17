@@ -38,12 +38,15 @@ export interface IUserData {
   email: string; 
   fullName: string;
   token: string; 
+  avatar?: string;
 }
 
 export interface IFetchUserData {
   email: string; 
   password: string;
   fullName?: string;
+  token?: string; 
+  avatar?: string;
 }
 
 export enum UserActionTypes {
