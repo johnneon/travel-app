@@ -108,7 +108,7 @@ function Header() {
   const classes = useStyles();
   const { changeLanguage } = useAction();
   const { dictionary } = useTypedSelector((state) => state.laguage);
-  const { TRAVEL_APP, SEARCH } = dictionary;
+  const { TRAVEL_APP } = dictionary;
   const [language, setLanguage] = useState(EN);
   const [open, setOpen] = useState(false);
 

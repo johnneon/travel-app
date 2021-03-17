@@ -8,6 +8,7 @@ import {
   withStyles,
 } from '@material-ui/core/styles';
 import { IconButton, TextField, FormControl } from '@material-ui/core';
+import { useTypedSelector } from '../../hooks/typedSelector.hook';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -47,6 +48,8 @@ const StyledForm = withStyles({
 function Search() {
   const classes = useStyles();
   const { changeSearch } = useAction();
+  const { dictionary } = useTypedSelector((state) => state.laguage);
+  const { SEARCH } = dictionary;
   const [searchText, setSearchText] = useState('');
 
   const handleChange = (event: React.ChangeEvent<{ value: string }>) => {
@@ -54,23 +57,36 @@ function Search() {
     setSearchText(event.target.value as string);
   };
 
+  const handleClick = () => {
+    changeSearch(searchText);
+  };
+
+  const handleKeyPress = (event: React.KeyboardEvent) => {
+    if (event.key === 'Enter') {
+      changeSearch(searchText);
+    }
+  };
+
   return (
     <StyledForm className={classes.form}>
       <IconButton
         type="submit"
         className={classes.iconButton}
-        aria-label="search">
+        aria-label="search"
+        onClick={handleClick}
+      >
         <SearchIcon />
       </IconButton>
       <TextField
         id="search"
         name="search"
-        placeholder="Search"
+        placeholder={SEARCH}
         autoFocus={true}
         autoComplete="off"
         type="search"
         value={searchText}
         onChange={handleChange}
+        onKeyPress={handleKeyPress}
         className={classes.search}
         InputLabelProps={{ shrink: true }}
       />
