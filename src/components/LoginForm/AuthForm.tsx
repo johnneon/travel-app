@@ -116,18 +116,24 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ activeTab, action }
     const postData = new FormData();
 
     for (let key in formData) {
+      //console.log(key, formData[key]);
+      // if(key === 'avatar') {                
+      //   // @ts-ignore
+      //   for (let key in formData['avatar']) {
+      //     // @ts-ignore
+      //     postData.append('avatar', formData['avatar'][key]);
+      //   }  
+      // } else {
+      //   // @ts-ignore
+      // }
       // @ts-ignore
-      console.log(key, formData[key]);
-      if(key === 'avatar') {                
-        // @ts-ignore
-        for (let key in formData['avatar']) {
-          // @ts-ignore
-          postData.append('avatar', formData['avatar'][key]);
-        }  
-      } else {
-        // @ts-ignore
-        postData.append(key, formData[key]);
-      }
+      postData.append(key, formData[key]);
+    }
+    // @ts-ignore
+    postData.append('avatar', inputFile?.current?.files[0]);
+     // @ts-ignore
+    for (var value of postData.values()) {
+      console.log(value);
     }
     console.log(postData);
 
@@ -205,7 +211,7 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ activeTab, action }
           name="avatar"
           type="file"
           onChange={setFormDataHandler}
-          // ref={inputFile}
+          ref={inputFile}
         />
         <Fab
           color="secondary"

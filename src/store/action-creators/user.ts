@@ -6,13 +6,16 @@ import { IUserAction, UserActionTypes, IFetchUserData, initialUserState } from "
 export const registerUser = (data: FormData) => {
   return async (dispatch: Dispatch<IUserAction>) => {
     try {
-      console.log(data);
-      dispatch({ type: UserActionTypes.FETCH_USER,  });
-      const response = await axios.post('http://localhost:8888/auth/login', data, {
-        headers: {
-          "Contetnt-Type":"multipart/form-data" 
-        }
-      });
+      // @ts-ignore
+      for (var value of data.values()) {
+        console.log(value);
+      }
+      // @ts-ignore
+      for (var key of data.keys()) {
+        console.log(key);
+      }
+      dispatch({ type: UserActionTypes.FETCH_USER, });
+      const response = await axios.post('https://travel-app-rss.herokuapp.com/auth/login', data); // for local back http://localhost:8888
       saveUserData(response.data);
       dispatch({ type: UserActionTypes.FETCH_USER_SUCCESS, payload: response.data });
       dispatch({ type: UserActionTypes.SHOW_MESSAGE, payload: 'User created successfully!' });
