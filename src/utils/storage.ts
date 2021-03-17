@@ -47,14 +47,12 @@ export const logoutUser = () => {
 
 export const isLoggedIn = (): boolean => {
   const data = window.localStorage.getItem(variables.USER_DATA);
-
   if (!data) {
     return false;
   }
-
-  if (JSON.parse(data)?.token !== '') {
+  
+  if (JSON.parse(data)?.token === '') {
     return false;
   }
-
   return true;
 };

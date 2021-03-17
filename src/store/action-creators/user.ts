@@ -7,8 +7,7 @@ export const registerUser = (data: FormData) => {
   return async (dispatch: Dispatch<IUserAction>) => {
     try {
       dispatch({ type: UserActionTypes.FETCH_USER, });
-      const response = await axios.post('http://localhost:8888/auth/register', data); // https://travel-app-rss.herokuapp.com
-      console.log(response.data, response);
+      const response = await axios.post('https://travel-app-rss.herokuapp.com/auth/register', data);
       saveUserData(response.data);
       dispatch({ type: UserActionTypes.FETCH_USER_SUCCESS, payload: response.data });
       dispatch({ type: UserActionTypes.SHOW_MESSAGE, payload: 'User created successfully!' });
@@ -26,7 +25,7 @@ export const loginUser = (data: FormData) => {
   return async (dispatch: Dispatch<IUserAction>) => {
     try {
       dispatch({ type: UserActionTypes.FETCH_USER,  });
-      const response = await axios.post('http://localhost:8888/auth/login', data);
+      const response = await axios.post('https://travel-app-rss.herokuapp.com/auth/login', data);
       dispatch({ type: UserActionTypes.SHOW_MESSAGE, payload: 'User logged in successfully!' });
       saveUserData(response.data);
       dispatch({ type: UserActionTypes.FETCH_USER_SUCCESS, payload: response.data });

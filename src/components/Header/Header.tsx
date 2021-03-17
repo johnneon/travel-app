@@ -22,6 +22,7 @@ import { NavLink } from 'react-router-dom';
 
 import logo from '../../assets/logo/logo.svg';
 import AuthCard from '../LoginForm/AuthCard';
+import UserControl from './UserControl';
 
 const { EN, RU, UA } = variables;
 
@@ -106,11 +107,12 @@ const StyledForm = withStyles({
 function Header() {
   const classes = useStyles();
   const { changeLanguage } = useAction();
-  const { dictionary } = useTypedSelector((state) => state.language);
-  const { TRAVEL_APP } = dictionary;
+  const state = useTypedSelector((state) => state);
+  const { TRAVEL_APP } = state.language.dictionary;
+  const { loggedIn } = state.user;
   const [language, setLanguage] = useState(EN);
   const [open, setOpen] = useState(false);
-
+  console.log(loggedIn);
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     changeLanguage(event.target.value as string);
     setLanguage(event.target.value as string);
@@ -155,7 +157,8 @@ function Header() {
               </Select>
             </StyledForm>
 
-            <AuthCard />
+            {loggedIn ? <UserControl /> : <AuthCard />}
+            
           </div>
         </Toolbar>
       </Container>

@@ -26,9 +26,12 @@ export const en = {
   PASSWORD: 'Password',
   INVALID_PASSWORD: 'Password is not valid.',
   UPLOAD_PHOTO: 'Upload photo',
+  UPLOADED_PHOTO: 'Photo uploaded',
   SIGNIN: 'Sign In',
   SIGNUP: 'Sign Up',
   ACCOUNT: 'Account',
+  LOGGED_AS: 'You have been logged as',
+  LOGOUT: 'Log out',
 };
 
 export const ru = {
@@ -59,9 +62,12 @@ export const ru = {
   PASSWORD: 'Пароль',
   INVALID_PASSWORD: 'Пароль введен в неверном формате.',
   UPLOAD_PHOTO: 'Загрузить фото',
+  UPLOADED_PHOTO: 'Фото загружено',
   SIGNIN: 'Вход',
   SIGNUP: 'Регистрация',
   ACCOUNT: 'Аккаунт',
+  LOGGED_AS: 'Вы вошли как',
+  LOGOUT: 'Выйти',
 };
 
 export const ua = {
@@ -92,7 +98,10 @@ export const ua = {
   PASSWORD: 'Пароль',
   INVALID_PASSWORD: 'Пароль не дійсний.',
   UPLOAD_PHOTO: 'Завантажити фото',
+  UPLOADED_PHOTO: 'Фото завантажено',
   SIGNIN: 'Увійти',
-  SIGNUP: 'Зареєструйтесь',
+  SIGNUP: 'Реєстрація',
   ACCOUNT: 'Аккаунт',
+  LOGGED_AS: 'Ви зареєстровані як',
+  LOGOUT: 'Вийти',
 };

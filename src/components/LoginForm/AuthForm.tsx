@@ -81,7 +81,9 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ activeTab, action }
     UPLOAD_PHOTO,
     SIGNIN,
     SIGNUP,
+    UPLOADED_PHOTO,
   } = useTypedSelector((store) => store.language.dictionary);
+
   const [formData, setFormData] = useState<IFormData>({
     email: '',
     password: '',
@@ -93,6 +95,8 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ activeTab, action }
     email: true,
     password: true,
   });
+
+  const [image, setImage] = useState(false);
 
   const setFormDataHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [event.target.name]: event.target.value });
@@ -119,10 +123,11 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ activeTab, action }
         inputFile
         && inputFile?.current
         && inputFile?.current?.files
+        && inputFile?.current?.files?.length > 0
       ) {
-      console.log(1);
-    } else {
-      console.log(2);
+        setImage(true);
+      } else {
+      setImage(true);
     }
   }
 
@@ -221,13 +226,13 @@ const AuthForm: React.FunctionComponent<IAuthFormProps> = ({ activeTab, action }
               ref={inputFile}
             />
             <Fab
-              color="secondary"
+              color={image ? "default" : "secondary"}
               size="small"
               component="span"
               aria-label="add"
               variant="extended"
             >
-              <AddIcon /> {UPLOAD_PHOTO}
+              <AddIcon /> {image ? UPLOADED_PHOTO : UPLOAD_PHOTO}
             </Fab>
         </label>
       </Grid>

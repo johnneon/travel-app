@@ -1,5 +1,6 @@
 import React from 'react';
 import { Tabs, Tab, makeStyles } from '@material-ui/core';
+import { useTypedSelector } from '../../hooks/typedSelector.hook';
 
 interface IAuthTabsProps {
   changeActiveTabHandler: (event: React.ChangeEvent<{}>, newValue: number) => void;
@@ -15,6 +16,7 @@ const useStyles = makeStyles(() => ({
 
 const AuthTabs: React.FunctionComponent<IAuthTabsProps> = ({ activeTab, changeActiveTabHandler }) => {
   const classes = useStyles();
+  const { SIGNIN, SIGNUP } = useTypedSelector((store) => store.language.dictionary);
 
   return (
     <Tabs
@@ -26,11 +28,11 @@ const AuthTabs: React.FunctionComponent<IAuthTabsProps> = ({ activeTab, changeAc
       scrollButtons="off"
     >
       <Tab
-        label="Sing Up"
+        label={SIGNIN}
         className={classes.auth__tabs}
       />
       <Tab
-        label="Login"
+        label={SIGNUP}
         className={classes.auth__tabs}
       />
     </Tabs>

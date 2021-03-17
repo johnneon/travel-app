@@ -1,9 +1,12 @@
 import { getUserData, isLoggedIn } from './../../utils/storage';
 import { UserActionTypes, IUserAction, IUserState } from "../../types/user";
 
+const loggedUser = isLoggedIn();
+const userData = getUserData();
+
 const inititalState: IUserState = {
-  user: getUserData(),
-  loggedIn: isLoggedIn(),
+  user: userData,
+  loggedIn: loggedUser,
   loading: false,
   error: '',
   successMessage: '',
