@@ -2,6 +2,8 @@
 
 Travel-app is an application for virtual travel around the world.
 
+[Back-end link](https://github.com/johnneon/travel-app-backend)
+
 ## App functionality
 - Search
   - the search works only on the main page of the application, there is no search field on the country page
