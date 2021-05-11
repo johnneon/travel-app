@@ -2,6 +2,8 @@
 
 Travel-app is an application for virtual travel around the world.
 
+Deploy: https://johnneon-travel-app.netlify.app/
+
 [Back-end repo](https://github.com/johnneon/travel-app-backend)
 
 ## App functionality
